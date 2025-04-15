@@ -1,0 +1,25 @@
+﻿CS445 Datasources
+
+
+https://catalog.data.gov/dataset/controlled-substance-prescriptions-by-drug-schedule-new
+
+
+https://catalog.data.gov/dataset/cannabis-retail-products-sold-by-product-type
+
+
+
+
+https://catalog.data.gov/dataset/average-price-per-gram-of-usable-cannabis
+
+
+
+
+https://catalog.data.gov/dataset/medical-marijuana-brand-registry
+
+
+
+
+https://catalog.data.gov/dataset/licensed-cannabis-and-medical-marijuana-retail-locations
+
+
+https://catalog.data.gov/dataset/cannabis-brand-registrations-by-type
