@@ -42,15 +42,15 @@ def print_Head(df, name):
     #print column names
     print("Columns:", df.columns.tolist())
     print("\n")
-
+# Alex Boyce
 def vis_One():
     print("Vis One")
-
+# Alex Boyce
 def vis_Two():
     print("Vis Two")
 
 
-#vis_three uses: AA
+#vis_three uses: AA. Alex Boyce
 def vis_Three():
     print("Vis Three")
 
@@ -94,6 +94,7 @@ def vis_Three():
     #save the figure
     plt.savefig("images/vis_three.png")
 
+# This is Medically Endorsed Cannabis Facilities and Social Equity Score by County 3D ScatterPlot. Kyle Dennewith.
 def vis_Four():
     # Taking the tuples from the medicallyEndorsedRetailers DataFrame with the string 'ACTIVE (ISSUED)'. "Unnamed: 4" is referencing the column.
     endorsedStatus = medicallyEndorsedRetailers[medicallyEndorsedRetailers['Unnamed: 4'] == 'ACTIVE (ISSUED)']
@@ -142,15 +143,22 @@ def vis_Four():
             yaxis_title="County Name",
             zaxis_title="Number of Medically Endorsed Cannabis Facilities",
             xaxis=dict(
-                range=[mergedCountiesTables['Lowest Score'].min() - 10,  # Add padding to left
-                       mergedCountiesTables['Lowest Score'].max() + 10],  # Add padding to right
+                range=[mergedCountiesTables['Lowest Score'].min() - 10,  # Add padding to left (0 - 10)
+                       mergedCountiesTables['Lowest Score'].max() + 10],  # Add padding to right (max + 10)
+                tickfont=dict(size=10, family="Times New Roman"),
+                titlefont = dict(family="Times New Roman", size=14),
             ),
             yaxis=dict(
                 tickmode='array',
-                tickvals=mergedCountiesTables['County'].index,  # Position for every county
-                ticktext=mergedCountiesTables['County'].unique(),  # Label for every county
-                tickangle=-45,  # Rotate for readability
-                tickfont=dict(size=10)
+                tickvals=mergedCountiesTables['County'].index,  # Position for every county using the index position
+                ticktext=mergedCountiesTables['County'].unique(),  # Label for every county using unique county names
+                tickangle=-45,  # Rotated for readability
+                tickfont=dict(size=10, family="Times New Roman"),
+                titlefont=dict(family="Times New Roman", size=14),
+            ),
+            zaxis=dict(
+                tickfont=dict(size=10, family="Times New Roman"),
+                titlefont=dict(family="Times New Roman", size=14),
             )
         ),
         width=1200,
