@@ -5,6 +5,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import seaborn as sns
+import plotly.graph_objects as go
+import numpy as np
 
 #ignore warnings
 import warnings
@@ -22,8 +24,17 @@ FF = pd.read_csv("data/FF_Cannabis_Retail_Sales_by_Week_Ending.csv")
 GG = pd.read_csv("data/GG_Number_of_Medical_Marijuana_Registrants_by_Month.csv")
 HH = pd.read_csv("data/HH_Medical_Marijuana_Dispensary_License1.csv")
 II = pd.read_csv("data/II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1.csv")
+# Medically Endorsed Cannabis locations in Washington Counties.
+medicallyEndorsedRetailers = pd.read_excel("data/MedicallyEndorsedRetailers05062025.xls")
+# Social Equity Scores for Washington Counties.
+socialEquityScores = pd.read_excel("data/SESbyCounty.xlsx")
+# Reformatting County Names for Comparisons in Social Equity Scores data.
+socialEquityScores['County'] = socialEquityScores['County'].str.replace(' County', '').str.upper()
+# Sorting Values
+socialEquityScores.sort_values(['County'], inplace=True)
 
-def print_head(df, name):
+
+def print_Head(df, name):
     #print name of the dataframe
     print(f"DataFrame: {name}")
     #print the head
@@ -83,24 +94,91 @@ def vis_Three():
     #save the figure
     plt.savefig("images/vis_three.png")
 
+def vis_Four():
+    # Taking the tuples from the medicallyEndorsedRetailers DataFrame with the string 'ACTIVE (ISSUED)'. "Unnamed: 4" is referencing the column.
+    endorsedStatus = medicallyEndorsedRetailers[medicallyEndorsedRetailers['Unnamed: 4'] == 'ACTIVE (ISSUED)']
+    # Making a new DataFrame to store COUNT(*) of tuples by the grouping attribute 'Unnamed: 11', which is referencing Counties. Renaming column for comparisons with socialEquityScores table.
+    endorsedCounties = (
+        endorsedStatus['Unnamed: 11'].value_counts().reset_index().rename(columns={'Unnamed: 11': 'County'}))
+    # Sorting the values alphabetically in County column for quicker comparisons.
+    endorsedCounties.sort_values('County', inplace=True)
+    # Doing a left join into the SES table since it contains more County tuples.
+
+    mergedCountiesTables = pd.merge(
+        socialEquityScores,  # Table I'm merging into.
+        endorsedCounties,  # Table I'm merging
+        on='County',  # Merging using the County column
+        how='left'  # Left joining the tables.
+    ).fillna({'count': 0})  # Replacing NaN values with 0.
+
+    # Making the Figure for scatter3D object.
+    fig = go.Figure()
+    fig.add_trace(go.Scatter3d(
+        hovertemplate="<b>County:</b> %{y}<br><b>Score:</b> %{x}<br><b>Facilities:</b> %{z}<extra></extra>",
+        # For the hoverover labels.
+        x=mergedCountiesTables['Lowest Score'],  # x-axis: Social Equity Scores for Counties
+        y=mergedCountiesTables['County'],  # y-axis: Washington Counties
+        z=mergedCountiesTables['count'],  # z-axis: Amount of Facilities per county
+        mode="markers",  # display as points
+        marker=dict(
+            size=8,  # marker size
+            color=np.where(
+                # Directly mapping the colors using the Social Equity Scores for a scale. Lower: Green, Mid: Yellow, Else: Red.
+                mergedCountiesTables['Lowest Score'] <= 100, 'green',
+                np.where(
+                    mergedCountiesTables['Lowest Score'] <= 200, 'yellow',
+                    'red'
+                )
+            ),  # mapping the school colors I mapped up above to respective schools GP and MS.
+            opacity=0.8  # marker opacity
+        ),
+        name='"Counties'
+    ))
+
+    fig.update_layout(
+        title="Medically Endorsed Cannabis Facilities and Social Equity Score by County",
+        scene=dict(
+            xaxis_title="Social Equity Score",
+            yaxis_title="County Name",
+            zaxis_title="Number of Medically Endorsed Cannabis Facilities",
+            xaxis=dict(
+                range=[mergedCountiesTables['Lowest Score'].min() - 10,  # Add padding to left
+                       mergedCountiesTables['Lowest Score'].max() + 10],  # Add padding to right
+            ),
+            yaxis=dict(
+                tickmode='array',
+                tickvals=mergedCountiesTables['County'].index,  # Position for every county
+                ticktext=mergedCountiesTables['County'].unique(),  # Label for every county
+                tickangle=-45,  # Rotate for readability
+                tickfont=dict(size=10)
+            )
+        ),
+        width=1200,
+        height=1200,
+        margin=dict(l=100, r=50, b=100, t=50)
+    )
+    fig.show()
+
 
 def main():
 
     #print the head of everything - Intended for debugging
-    print_head(AA, "AA_Cannabis_Retail_Products_Sold_by_Product_Type")
-    print_head(BB, "BB_Average_Price_Per_Gram_of_Usable_Cannabis")
-    print_head(CC, "CC_Cannabis_Retailers1")
-    print_head(DD, "DD_Licensed_Cannabis_and_Medical_Marijuana_Retail_Locations")
-    print_head(EE, "EE_Cannabis_Brand_Registrations_By_Type")
-    print_head(FF, "FF_Cannabis_Retail_Sales_by_Week_Ending")
-    print_head(GG, "GG_Number_of_Medical_Marijuana_Registrants_by_Month")
-    print_head(HH, "HH_Medical_Marijuana_Dispensary_License1")
-    print_head(II, "II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1")
+    print_Head(AA, "AA_Cannabis_Retail_Products_Sold_by_Product_Type")
+    print_Head(BB, "BB_Average_Price_Per_Gram_of_Usable_Cannabis")
+    print_Head(CC, "CC_Cannabis_Retailers1")
+    print_Head(DD, "DD_Licensed_Cannabis_and_Medical_Marijuana_Retail_Locations")
+    print_Head(EE, "EE_Cannabis_Brand_Registrations_By_Type")
+    print_Head(FF, "FF_Cannabis_Retail_Sales_by_Week_Ending")
+    print_Head(GG, "GG_Number_of_Medical_Marijuana_Registrants_by_Month")
+    print_Head(HH, "HH_Medical_Marijuana_Dispensary_License1")
+    print_Head(II, "II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1")
 
     #Visualizations:
     vis_One()
     vis_Two()
     vis_Three()
+    vis_Four()
+
 
 main()
 
