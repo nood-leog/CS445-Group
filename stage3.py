@@ -228,7 +228,7 @@ def vis_Four():
     fig.show()
 
 # Kyle Dennewith
-# Washington Counties: Police Activity and Social Equity Color/Icon Map.
+# Washington Counties: Police Activity and Social Equity Color/Icon Map. Icons WIP
 def vis_Five():
     enforcementVisits = pd.read_csv('data/Cannabis_Enforcement_Visits_04152025.csv')  # Loading the dataset from csv.
     washingtonCounties = geopandas.read_file('zip://data/WA_COUNTY_Boundaries.zip')  # Downloaded this from the https://geo.wa.gov/datasets website for Washington County boundary data.
