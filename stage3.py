@@ -48,7 +48,7 @@ def print_Head(df, name):
 
 #Alex Boyce
 #vis_One
-#uses: TODO!
+#uses: DD, geo
 def vis_One():
     print("Vis One: Cannabis Retail Locations by ZIP Code")
 
@@ -58,9 +58,6 @@ def vis_One():
 
     #filter to only Connecticut ZIPs starting with 06
     zcta_ct = zcta[zcta["ZCTA5CE10"].str.startswith("06")].copy()
-
-    #load the DD dataset
-    #dd = pd.read_csv("data/DD_Licensed_Cannabis_and_Medical_Marijuana_Retail_Locations.csv")
 
     #clean Zipcode
     DD["Zipcode"] = DD["Zipcode"].astype(str).str.zfill(5)
@@ -80,6 +77,8 @@ def vis_One():
     ax.set_title("Cannabis Retail Store Count by ZIP Code (Connecticut)", fontsize=16)
     ax.axis("off")
     plt.tight_layout()
+    #save the figure
+    plt.savefig("images/vis_one.png")
     plt.show()
 
 #Alex Boyce
@@ -345,33 +344,4 @@ def main():
     vis_Four()
     vis_Five()
 
-
 main()
-
-
-
-
-'''
-VIS ONE:
-#Average Cannabis Sales in Connecticut by City/Town (20XX)]
-
-Relevant Data: FF, DD, CC
-
-We will use a choropleth map of Connecticut where each city/town is
-associated with a colored square based on its average cannabis sales volume
-over the span of a year. Areas with higher sales will be shaded in darker
-green, while areas with lower sales will be shaded in darker blue, with a
-gradient of colors in between
-
-Rationale:
-This visualization would address the question: “Where are cannabis sales
-concentrated within the state, and are there significant regional sales
-disparities in the legal cannabis market?”
-
-Expected Insights:
-This visualization would help us understand if sales are clustered in urban
-centers, near state borders, or if other geographic factors influence sales
-volume.
-
-'''
-
