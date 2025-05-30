@@ -7,6 +7,7 @@ import matplotlib.dates as mdates
 import seaborn as sns
 import plotly.graph_objects as go
 import numpy as np
+import geopandas as geopandas
 
 #ignore warnings
 import warnings
@@ -151,7 +152,9 @@ def vis_Three():
     plt.savefig("images/vis_three.png")
     plt.show()
 
-# This is Medically Endorsed Cannabis Facilities and Social Equity Score by County 3D ScatterPlot. Kyle Dennewith.
+
+# Kyle Dennewith.
+# This is Medically Endorsed Cannabis Facilities and Social Equity Score by County 3D ScatterPlot.
 def vis_Four():
     # Taking the tuples from the medicallyEndorsedRetailers DataFrame with the string 'ACTIVE (ISSUED)'. "Unnamed: 4" is referencing the column.
     endorsedStatus = medicallyEndorsedRetailers[medicallyEndorsedRetailers['Unnamed: 4'] == 'ACTIVE (ISSUED)']
@@ -224,6 +227,38 @@ def vis_Four():
     )
     fig.show()
 
+# Kyle Dennewith
+# Washington Counties: Police Activity and Social Equity Color/Icon Map.
+def vis_Five():
+    enforcementVisits = pd.read_csv('data/Cannabis_Enforcement_Visits_04152025.csv')  # Loading the dataset from csv.
+    washingtonCounties = geopandas.read_file('zip://data/WA_COUNTY_Boundaries.zip')  # Downloaded this from the https://geo.wa.gov/datasets website for Washington County boundary data.
+    washingtonCounties = washingtonCounties.to_crs("EPSG:3395")
+    enforcementNumbers = enforcementVisits['C4'].value_counts().reset_index()  # Creating a new table using the data and counting up amount of enforcement visits per county using the C4 column in the enforcementVisits dataframe.
+    enforcementNumbers.columns = ['County','totalCount']  # Naming the columns of the newly made dataframe so that I can make it union compatible for the merge.
+    mergedEnforcementCounties = pd.merge(
+        socialEquityScores,  # Table I'm merging into.
+        enforcementNumbers,  # Table I'm merging
+        on='County',  # Merging using the County column
+        how='left'  # Left joining the tables.
+    )
+    # Making a new column called color in the merged tables to assign colors using np.where.
+    # If the Social Equity Score is NaN or <= 100 the county is green, if the Social Equity Score is above 100 and below 200 then the county is orange, else the county is red.
+    mergedEnforcementCounties['color'] = (
+        np.where(
+        mergedEnforcementCounties['Lowest Score'].isna() | (mergedEnforcementCounties['Lowest Score'] <= 100),'green',
+        np.where((mergedEnforcementCounties['Lowest Score'] <= 200) & (mergedEnforcementCounties['Lowest Score'] > 100),'orange',
+            'red'
+        )
+    ))
+
+    # Creating the figure and axis to put the geometry of my map on.
+    fig, ax = plt.subplots(figsize=(12, 10))
+    # Plotting the states out now using the color column to choose colors and black lines with a pretty visible width to make strain on the eyes less.
+    washingtonCounties.plot(ax=ax, color=mergedEnforcementCounties['color'], edgecolor='black', linewidth=1)
+
+    plt.title("Washington Counties: Police Activity and Social Equity")  # The title of the Geodata.
+    plt.tight_layout()
+    plt.show()
 
 def main():
 
@@ -243,6 +278,7 @@ def main():
     vis_Two()
     vis_Three()
     vis_Four()
+    vis_Five()
 
 
 main()

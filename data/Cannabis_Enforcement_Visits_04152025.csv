@@ -1,0 +1,501 @@
+#,C0,C1,C2,C3,C4
+1,License Number,Date,Activity,City Name,County Name 
+2,,42054,Cannabis Premises Check,SEATTLE,KING
+3,,42114,Cannabis Premises Check,SEATTLE,KING
+4,,42324,Cannabis Applicant Site Verification,SEATTLE,KING
+5,,42329,Cannabis Premises Check,,
+6,,42515,Cannabis Premises Check,WOODINVILLE,KING
+7,,42566,Cannabis Premises Check,BUCKLEY,PIERCE
+8,,42585,Cannabis Compliance Check-no Sale,POULSBO,KITSAP
+9,,42591,Cannabis Premises Check,UNINCORPORATED AREAS,MASON
+10,,42607,Cannabis Premises Check,,
+11,,42657,Cannabis Premises Check,ASOTIN,ASOTIN
+12,,42661,Cannabis Premises Check,SEATTLE,KING
+13,,42677,Cannabis Premises Check,SEATTLE,KING
+14,,42761,Cannabis Premises Check,,
+15,,42783,Cannabis Compliance Check-no Sale,POULSBO,KITSAP
+16,,42783,Cannabis Premises Check,POULSBO,KITSAP
+17,,42789,Cannabis Premises Check,,
+18,,42795,Cannabis Premises Check,POULSBO,KITSAP
+19,,42868,Cannabis Premises Check,,
+20,,42913,Cannabis Premises Check,,
+21,,42927,Cannabis Premises Check,PULLMAN,WHITMAN
+22,,42986,Cannabis Premises Check,BELLINGHAM,WHATCOM
+23,,43095,Cannabis Premises Check,OAKVILLE,GRAYS HARBOR
+24,,43109,Cannabis Premises Check,PORT ORCHARD,KITSAP
+25,,43111,Cannabis Premises Check,BELLINGHAM,WHATCOM
+26,,43133,Cannabis Premises Check,PUYALLUP,PIERCE
+27,,43136,Cannabis Premises Check,,
+28,,43222,Cannabis Premises Check,UNINCORP. AREAS,STEVENS
+29,,43279,Cannabis Applicant Site Verification,,
+30,,43306,Cannabis Applicant Site Verification,,
+31,,43311,Cannabis Premises Check,DEER PARK,SPOKANE
+32,,43314,Cannabis Applicant Site Verification,DEER PARK,SPOKANE
+33,,43314,Cannabis Premises Check,DEER PARK,SPOKANE
+34,,43341,Cannabis Premises Check,TONASKET,OKANOGAN
+35,,43375,Cannabis Applicant Site Verification,,
+36,,43390,Cannabis Premises Check,OLYMPIA,THURSTON
+37,,43432,Cannabis Premises Check,OLYMPIA,THURSTON
+38,,43498,Cannabis Premises Check,SEATTLE,KING
+39,,43593,Cannabis Applicant Site Verification,,
+40,,43670,Cannabis Compliance Check-no Sale,YAKIMA,YAKIMA
+41,,43693,Cannabis Premises Check,,
+42,,43706,Cannabis INVENTORY AUDIT,,
+43,,43788,Cannabis Premises Check,,
+44,,43895,Cannabis Premises Check,,
+45,,43895,Cannabis Premises Check,,
+46,,43922,Cannabis Premises Check,,
+47,,43922,Cannabis Premises Check,SPOKANE,SPOKANE
+48,,44053,Cannabis Premises Check,,
+49,,44092,Cannabis Premises Check,,
+50,,44140,Cannabis Premises Check,,
+51,,44141,Cannabis Premises Check,YAKIMA,YAKIMA
+52,,44389,Cannabis Premises Check,,
+53,,44389,Cannabis Premises Check,,
+54,,44604,Cannabis Premises Check,,
+55,,44622,Cannabis Premises Check,,
+56,,44653,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+57,,44657,Cannabis Premises Check,,
+58,,44671,Cannabis Premises Check,,
+59,,44691,Cannabis Premises Check,,
+60,,44705,Cannabis Premises Check,,
+61,,44764,Cannabis Administrative Hold Initiated,,
+62,,44790,Cannabis Premises Check,,
+63,,44792,Cannabis Premises Check,,
+64,,44795,Cannabis Premises Check,,
+65,,44894,Cannabis Premises Check,,
+66,,44894,Cannabis Premises Check,,
+67,,44904,Cannabis Premises Check,,
+68,,44914,Cannabis Premises Check,,
+69,,44929,Cannabis Premises Check,,
+70,,44935,Cannabis Premises Check,,
+71,,44950,Cannabis Premises Check,,
+72,,44950,Cannabis Premises Check,,
+73,,44952,Cannabis Premises Check,,
+74,,44952,Cannabis Premises Check,,
+75,,44961,Cannabis Premises Check,,
+76,,44967,Cannabis Premises Check,,
+77,,44982,Cannabis Premises Check,,
+78,,44982,Cannabis Premises Check,,
+79,,44986,Cannabis Premises Check,,
+80,,44996,Cannabis Premises Check,,
+81,,44999,Cannabis Premises Check,,
+82,,45010,Cannabis Premises Check,,
+83,,45013,Cannabis Premises Check,,
+84,,45017,Cannabis Premises Check,,
+85,,45023,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+86,,45041,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+87,,45043,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+88,,45044,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+89,,45104,Cannabis Premises Check,,
+90,,45104,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+91,,45124,Cannabis Premises Check,,
+92,,45125,Cannabis Premises Check,,
+93,,45143,Cannabis Premises Check,,
+94,,45150,Cannabis Premises Check,,
+95,,45153,Cannabis Premises Check,,
+96,,45155,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+97,,45181,Cannabis Premises Check,TACOMA,PIERCE
+98,,45182,Cannabis Premises Check,TACOMA,PIERCE
+99,,45187,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+100,,45189,Cannabis Premises Check,,
+101,,45189,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+102,,45190,Cannabis Premises Check,,
+103,,45203,Cannabis Premises Check,,
+104,,45203,Cannabis Premises Check,,
+105,,45209,Cannabis Premises Check,,
+106,,45212,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+107,,45220,Cannabis Premises Check,,
+108,,45231,Cannabis Premises Check,,
+109,,45238,Cannabis Premises Check,,
+110,,45252,Cannabis Premises Check,,
+111,,45259,Cannabis Premises Check,TACOMA,PIERCE
+112,,45267,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+113,,45269,Cannabis Premises Check,,
+114,,45273,Cannabis Premises Check,,
+115,,45309,Cannabis Premises Check,,
+116,,45331,Cannabis Premises Check,,
+117,,45332,Cannabis Premises Check,,
+118,,45366,Cannabis Premises Check,TACOMA,PIERCE
+119,,45379,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+120,,45402,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+121,,45404,Cannabis Premises Check,,
+122,,45417,Cannabis Premises Check,,
+123,,45421,Cannabis Premises Check,,
+124,,45442,Cannabis Premises Check,,
+125,,45463,Cannabis Premises Check,,
+126,,45495,Cannabis Premises Check,,
+127,,45498,Cannabis Premises Check,,
+128,,45498,Cannabis Premises Check,,
+129,,45498,Cannabis Premises Check,,
+130,,45505,Cannabis Premises Check,,
+131,,45510,Cannabis Premises Check,,
+132,,45512,Cannabis Premises Check,AIRWAY HEIGHTS,SPOKANE
+133,,45512,Cannabis Sample Collected,AIRWAY HEIGHTS,SPOKANE
+134,,45516,Cannabis Premises Check,ROY,PIERCE
+135,,45532,Cannabis Premises Check,,
+136,,45540,Cannabis Premises Check,,
+137,,45540,Cannabis Premises Check,TACOMA,PIERCE
+138,,45547,Cannabis Premises Check,TACOMA,PIERCE
+139,,45552,Cannabis Premises Check,,
+140,,45568,Cannabis Premises Check,,
+141,,45622,Cannabis Premises Check,,
+142,,45635,Cannabis Premises Check,,
+143,,45679,Cannabis Premises Check,,
+144,,45699,Cannabis Premises Check,,
+145,,45712,Cannabis Premises Check,,
+146,51017,42041,Cannabis Premises Check,UNINCORPORATED AREAS,CHELAN
+147,51760,42758,Cannabis Premises Check,UNINCORP. AREAS,WHATCOM
+148,52563,43318,Cannabis Premises Check,SEATTLE,KING
+149,52853,42282,Cannabis Premises Check,LYNNWOOD,SNOHOMISH
+150,52988,42500,Cannabis Premises Check,UNINCORPORATED AREAS,SKAGIT
+151,53106,42529,Cannabis Premises Check,SEATTLE,KING
+152,53607,42048,Cannabis Premises Check,SEATTLE,KING
+153,54232,42299,Cannabis Applicant Site Verification,UNINCORPORATED AREAS,KING
+154,54232,42313,Cannabis Premises Check,UNINCORPORATED AREAS,KING
+155,54794,42354,Cannabis Premises Check,UNINCORP. AREAS,WHATCOM
+156,54794,42355,Cannabis Premises Check,UNINCORP. AREAS,WHATCOM
+157,54794,42356,Cannabis Premises Check,UNINCORP. AREAS,WHATCOM
+158,54794,42457,Cannabis Premises Check,UNINCORP. AREAS,WHATCOM
+159,70636,41859,Cannabis Premises Check,,
+160,71314,45054,Cannabis Compliance Check-no Sale,SUNNYSIDE,YAKIMA
+161,71314,45063,Cannabis Compliance Check-no Sale,SUNNYSIDE,YAKIMA
+162,71368,42643,Cannabis Premises Check,VANCOUVER,CLARK
+163,71368,42660,Cannabis Premises Check,VANCOUVER,CLARK
+164,71368,42671,Cannabis Premises Check,VANCOUVER,CLARK
+165,71368,42678,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+166,71368,42678,Cannabis Premises Check,VANCOUVER,CLARK
+167,71368,42689,Cannabis Premises Check,VANCOUVER,CLARK
+168,71368,42749,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+169,71368,42749,Cannabis Premises Check,VANCOUVER,CLARK
+170,71368,42879,Cannabis Premises Check,VANCOUVER,CLARK
+171,71368,42922,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+172,71368,42922,Cannabis Premises Check,VANCOUVER,CLARK
+173,71368,43075,Cannabis Premises Check,VANCOUVER,CLARK
+174,71368,43088,Cannabis Premises Check,VANCOUVER,CLARK
+175,71368,43138,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+176,71368,43174,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+177,71368,43244,Cannabis Premises Check,VANCOUVER,CLARK
+178,71368,43292,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+179,71368,43327,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+180,71368,43412,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+181,71368,43455,Cannabis Premises Check,VANCOUVER,CLARK
+182,71368,43488,Cannabis Premises Check,VANCOUVER,CLARK
+183,71368,43501,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+184,71368,43545,Cannabis Premises Check,VANCOUVER,CLARK
+185,71368,43572,Cannabis Premises Check,VANCOUVER,CLARK
+186,71368,43575,Cannabis Premises Check,VANCOUVER,CLARK
+187,71368,43614,Cannabis Premises Check,VANCOUVER,CLARK
+188,71368,43616,Cannabis Premises Check,VANCOUVER,CLARK
+189,71368,43680,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+190,71368,43753,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+191,71368,43761,Cannabis Premises Check,VANCOUVER,CLARK
+192,71368,44026,Cannabis Premises Check,VANCOUVER,CLARK
+193,71368,44097,Cannabis Premises Check,VANCOUVER,CLARK
+194,71368,44271,Cannabis Premises Check,VANCOUVER,CLARK
+195,71368,44385,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+196,71368,44385,Cannabis Premises Check,VANCOUVER,CLARK
+197,71368,44607,Cannabis Premises Check,VANCOUVER,CLARK
+198,71368,44658,Cannabis Premises Check,VANCOUVER,CLARK
+199,71368,44671,Cannabis Premises Check,VANCOUVER,CLARK
+200,71368,44671,Cannabis Premises Check,VANCOUVER,CLARK
+201,71368,44720,Cannabis Premises Check,VANCOUVER,CLARK
+202,71368,44720,Cannabis Premises Check,VANCOUVER,CLARK
+203,71368,44767,Cannabis Applicant Site Verification,VANCOUVER,CLARK
+204,71368,44767,Cannabis Premises Check,VANCOUVER,CLARK
+205,71368,44845,Cannabis Premises Check,VANCOUVER,CLARK
+206,71368,44859,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+207,71368,44874,Cannabis Premises Check,VANCOUVER,CLARK
+208,71368,44932,Cannabis Premises Check,VANCOUVER,CLARK
+209,71368,44971,Cannabis Premises Check,VANCOUVER,CLARK
+210,71368,44972,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+211,71368,44974,Cannabis Premises Check,VANCOUVER,CLARK
+212,71368,45034,Cannabis Premises Check,VANCOUVER,CLARK
+213,71368,45050,Cannabis Premises Check,VANCOUVER,CLARK
+214,71368,45078,Cannabis Premises Check,VANCOUVER,CLARK
+215,71368,45091,Cannabis Premises Check,VANCOUVER,CLARK
+216,71368,45155,Cannabis Premises Check,VANCOUVER,CLARK
+217,71368,45187,Cannabis Premises Check,VANCOUVER,CLARK
+218,71368,45230,Cannabis Premises Check,VANCOUVER,CLARK
+219,71368,45234,Cannabis Premises Check,VANCOUVER,CLARK
+220,71368,45276,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+221,71368,45299,Cannabis Premises Check,VANCOUVER,CLARK
+222,71368,45334,Cannabis Premises Check,VANCOUVER,CLARK
+223,71368,45346,Cannabis Premises Check,VANCOUVER,CLARK
+224,71368,45399,Cannabis Premises Check,VANCOUVER,CLARK
+225,71368,45435,Cannabis Premises Check,VANCOUVER,CLARK
+226,71368,45456,Cannabis Premises Check,VANCOUVER,CLARK
+227,71368,45495,Cannabis Premises Check,VANCOUVER,CLARK
+228,71368,45540,Cannabis Premises Check,VANCOUVER,CLARK
+229,71368,45579,Cannabis Compliance Check-no Sale,VANCOUVER,CLARK
+230,71368,45583,Cannabis Premises Check,VANCOUVER,CLARK
+231,71368,45600,Cannabis Premises Check,VANCOUVER,CLARK
+232,71368,45618,Cannabis Premises Check,VANCOUVER,CLARK
+233,71368,45691,Cannabis Premises Check,VANCOUVER,CLARK
+234,71368,45693,Cannabis Premises Check,VANCOUVER,CLARK
+235,72413,42740,Cannabis Applicant Site Verification,DAVENPORT,LINCOLN
+236,72413,42740,Cannabis Premises Check,DAVENPORT,LINCOLN
+237,72413,42801,Cannabis Premises Check,DAVENPORT,LINCOLN
+238,72413,42845,Cannabis Premises Check,DAVENPORT,LINCOLN
+239,72413,42899,Cannabis Premises Check,DAVENPORT,LINCOLN
+240,72413,42922,Cannabis Premises Check,DAVENPORT,LINCOLN
+241,72413,42955,Cannabis Premises Check,DAVENPORT,LINCOLN
+242,72413,43028,Cannabis Premises Check,DAVENPORT,LINCOLN
+243,72413,43048,Cannabis Premises Check,DAVENPORT,LINCOLN
+244,72413,43132,Cannabis Premises Check,DAVENPORT,LINCOLN
+245,72413,43160,Cannabis Premises Check,DAVENPORT,LINCOLN
+246,72413,43168,Cannabis Premises Check,DAVENPORT,LINCOLN
+247,72449,42408,Cannabis Premises Check,TACOMA,PIERCE
+248,72994,43497,Cannabis Compliance Check-no Sale,TACOMA,PIERCE
+249,72994,43497,Cannabis Premises Check,TACOMA,PIERCE
+250,73552,41806,Cannabis Premises Check,RENTON,KING
+251,73980,43550,Cannabis Premises Check,,
+252,74294,45567,Cannabis Premises Check,ZILLAH,YAKIMA
+253,74629,44747,Cannabis Premises Check,SEATTLE,KING
+254,74647,42322,Cannabis Premises Check,PASCO,FRANKLIN
+255,74647,42686,Cannabis Premises Check,PASCO,FRANKLIN
+256,74990,42893,Cannabis Compliance Check-no Sale,UNINCORPORATED AREAS,SPOKANE
+257,75118,45640,Cannabis Compliance Check-no Sale,WALLA WALLA (CITY),WALLA WALLA
+258,75254,43762,Cannabis Compliance Check-no Sale,SEATTLE,KING
+259,76189,42670,Cannabis Premises Check,IONE,PEND OREILLE
+260,76189,42691,Cannabis Compliance Check-no Sale,IONE,PEND OREILLE
+261,76189,42691,Cannabis Premises Check,IONE,PEND OREILLE
+262,76189,42801,Cannabis Premises Check,IONE,PEND OREILLE
+263,76189,42832,Cannabis Compliance Check-no Sale,IONE,PEND OREILLE
+264,76189,42852,Cannabis Premises Check,IONE,PEND OREILLE
+265,76189,42878,Cannabis Compliance Check-no Sale,IONE,PEND OREILLE
+266,76189,42878,Cannabis Premises Check,IONE,PEND OREILLE
+267,76189,42936,Cannabis Premises Check,IONE,PEND OREILLE
+268,76189,42940,Cannabis Premises Check,IONE,PEND OREILLE
+269,76189,42975,Cannabis Premises Check,IONE,PEND OREILLE
+270,76189,42999,Cannabis Compliance Check-no Sale,IONE,PEND OREILLE
+271,76189,42999,Cannabis Premises Check,IONE,PEND OREILLE
+272,76189,43013,Cannabis Premises Check,IONE,PEND OREILLE
+273,76189,43053,Cannabis Premises Check,IONE,PEND OREILLE
+274,76189,43134,Cannabis Premises Check,IONE,PEND OREILLE
+275,76189,43164,Cannabis Premises Check,IONE,PEND OREILLE
+276,76189,43241,Cannabis Compliance Check-no Sale,IONE,PEND OREILLE
+277,76189,43241,Cannabis Premises Check,IONE,PEND OREILLE
+278,76189,43270,Cannabis Compliance Check-no Sale,IONE,PEND OREILLE
+279,76189,43270,Cannabis Premises Check,IONE,PEND OREILLE
+280,76189,43334,Cannabis Compliance Check-no Sale,IONE,PEND OREILLE
+281,76189,43452,Cannabis Compliance Check-no Sale,IONE,PEND OREILLE
+282,76189,43452,Cannabis Premises Check,IONE,PEND OREILLE
+283,76189,43570,Cannabis Premises Check,IONE,PEND OREILLE
+284,76189,43641,Cannabis Compliance Check-no Sale,IONE,PEND OREILLE
+285,76189,43641,Cannabis Premises Check,IONE,PEND OREILLE
+286,76189,43697,Cannabis Premises Check,IONE,PEND OREILLE
+287,76189,43746,Cannabis Premises Check,IONE,PEND OREILLE
+288,76189,43763,Cannabis Premises Check,IONE,PEND OREILLE
+289,76189,43901,Cannabis Compliance Check-no Sale,IONE,PEND OREILLE
+290,76189,43901,Cannabis Premises Check,IONE,PEND OREILLE
+291,76189,43907,Cannabis Premises Check,IONE,PEND OREILLE
+292,76189,44092,Cannabis Premises Check,IONE,PEND OREILLE
+293,76189,44361,Cannabis Premises Check,IONE,PEND OREILLE
+294,76189,44496,Cannabis Compliance Check-no Sale,IONE,PEND OREILLE
+295,76189,44496,Cannabis Premises Check,IONE,PEND OREILLE
+296,76189,44544,Cannabis Premises Check,IONE,PEND OREILLE
+297,76189,44680,Cannabis Premises Check,IONE,PEND OREILLE
+298,76189,45567,Cannabis Premises Check,IONE,PEND OREILLE
+299,76189,45595,Cannabis Premises Check,IONE,PEND OREILLE
+300,76189,45666,Cannabis Compliance Check-no Sale,IONE,PEND OREILLE
+301,76189,45666,Cannabis Premises Check,IONE,PEND OREILLE
+302,76189,45686,Cannabis Premises Check,IONE,PEND OREILLE
+303,76201,45246,Cannabis Sample Collected,,
+304,76458,42384,Cannabis Applicant Site Verification,TACOMA,PIERCE
+305,76458,42721,Cannabis Premises Check,TACOMA,PIERCE
+306,76458,42752,Cannabis Premises Check,TACOMA,PIERCE
+307,76458,42762,Cannabis Premises Check,TACOMA,PIERCE
+308,76458,42782,Cannabis Premises Check,TACOMA,PIERCE
+309,76458,42795,Cannabis Compliance Check-no Sale,TACOMA,PIERCE
+310,76458,42826,Cannabis Premises Check,TACOMA,PIERCE
+311,76458,42830,Cannabis Premises Check,TACOMA,PIERCE
+312,76458,42838,Cannabis Compliance Check-no Sale,TACOMA,PIERCE
+313,76458,42857,Cannabis Compliance Check-no Sale,TACOMA,PIERCE
+314,76458,42887,Cannabis Premises Check,TACOMA,PIERCE
+315,76458,42921,Cannabis Compliance Check-no Sale,TACOMA,PIERCE
+316,76458,42922,Cannabis Premises Check,TACOMA,PIERCE
+317,76458,42930,Cannabis Premises Check,TACOMA,PIERCE
+318,76458,42935,Cannabis Premises Check,TACOMA,PIERCE
+319,76458,42942,Cannabis Premises Check,TACOMA,PIERCE
+320,76458,42962,Cannabis Premises Check,TACOMA,PIERCE
+321,76458,42979,Cannabis Compliance Check-no Sale,TACOMA,PIERCE
+322,76458,43005,Cannabis Premises Check,TACOMA,PIERCE
+323,76458,43026,Cannabis Premises Check,TACOMA,PIERCE
+324,76458,43031,Cannabis Premises Check,TACOMA,PIERCE
+325,76458,43032,Cannabis Premises Check,TACOMA,PIERCE
+326,76458,43038,Cannabis Premises Check,TACOMA,PIERCE
+327,76458,43045,Cannabis Compliance Check-no Sale,TACOMA,PIERCE
+328,76458,43186,Cannabis Applicant Site Verification,TACOMA,PIERCE
+329,76484,44636,Cannabis Premises Check,SPOKANE (CITY),SPOKANE
+330,76599,43579,Cannabis Administrative Hold Initiated,TUKWILA,KING
+331,77000,43299,Cannabis Premises Check,LAKE FOREST PARK,KING
+332,77000,43361,Cannabis Compliance Check-no Sale,LAKE FOREST PARK,KING
+333,77000,43361,Cannabis Premises Check,LAKE FOREST PARK,KING
+334,77000,43451,Cannabis Premises Check,LAKE FOREST PARK,KING
+335,77000,43477,Cannabis Compliance Check-no Sale,LAKE FOREST PARK,KING
+336,77000,43477,Cannabis Premises Check,LAKE FOREST PARK,KING
+337,77000,43595,Cannabis Compliance Check-no Sale,LAKE FOREST PARK,KING
+338,77000,43595,Cannabis Premises Check,LAKE FOREST PARK,KING
+339,77259,44790,Cannabis Premises Check,PORT TOWNSEND,JEFFERSON
+340,77459,42866,Cannabis Premises Check,TUMWATER,THURSTON
+341,78001,42486,Cannabis Premises Check,UNINCORPORATED AREAS,SKAGIT
+342,78001,42649,Cannabis Premises Check,UNINCORPORATED AREAS,SKAGIT
+343,78256,43033,Cannabis Premises Check,SEATTLE,KING
+344,78256,43033,Cannabis Premises Check,SEATTLE,KING
+345,78256,43154,Cannabis Premises Check,SEATTLE,KING
+346,78256,43182,Cannabis Premises Check,SEATTLE,KING
+347,78256,43404,Cannabis Premises Check,SEATTLE,KING
+348,78256,43859,Cannabis Premises Check,SEATTLE,KING
+349,78256,43886,Cannabis Premises Check,SEATTLE,KING
+350,78256,44417,Cannabis Premises Check,SEATTLE,KING
+351,78256,44657,Cannabis Premises Check,SEATTLE,KING
+352,78256,44964,Cannabis Premises Check,SEATTLE,KING
+353,78256,45159,Cannabis Premises Check,SEATTLE,KING
+354,78256,45358,Cannabis Premises Check,SEATTLE,KING
+355,78696,43362,Cannabis Premises Check,UNINCORPORATED AREAS,SKAGIT
+356,79013,42494,Cannabis Premises Check,SEATTLE,KING
+357,79013,42507,Cannabis Premises Check,SEATTLE,KING
+358,79013,42553,Cannabis Premises Check,SEATTLE,KING
+359,79013,42647,Cannabis Compliance Check-no Sale,SEATTLE,KING
+360,79013,42647,Cannabis Premises Check,SEATTLE,KING
+361,79013,42688,Cannabis Compliance Check-no Sale,SEATTLE,KING
+362,79013,42835,Cannabis Premises Check,SEATTLE,KING
+363,79013,42857,Cannabis Premises Check,SEATTLE,KING
+364,79013,42867,Cannabis Compliance Check-no Sale,SEATTLE,KING
+365,79013,42881,Cannabis Premises Check,SEATTLE,KING
+366,79013,42948,Cannabis Premises Check,SEATTLE,KING
+367,79013,42961,Cannabis Premises Check,SEATTLE,KING
+368,79013,42964,Cannabis Compliance Check-no Sale,SEATTLE,KING
+369,79013,43082,Cannabis Compliance Check-Sale,SEATTLE,KING
+370,79013,43082,Cannabis Premises Check,SEATTLE,KING
+371,79013,43087,Cannabis Premises Check,SEATTLE,KING
+372,79013,43096,Cannabis Premises Check,SEATTLE,KING
+373,79013,43206,Cannabis Compliance Check-no Sale,SEATTLE,KING
+374,79013,43206,Cannabis Premises Check,SEATTLE,KING
+375,79013,43299,Cannabis Compliance Check-no Sale,SEATTLE,KING
+376,79013,43299,Cannabis Premises Check,SEATTLE,KING
+377,79013,43452,Cannabis Compliance Check-no Sale,SEATTLE,KING
+378,79013,43452,Cannabis Premises Check,SEATTLE,KING
+379,79013,43605,Cannabis Compliance Check-no Sale,SEATTLE,KING
+380,79013,43760,Cannabis Compliance Check-no Sale,SEATTLE,KING
+381,79013,43766,Cannabis Premises Check,SEATTLE,KING
+382,79013,44312,Cannabis Premises Check,SEATTLE,KING
+383,79013,44321,Cannabis Premises Check,SEATTLE,KING
+384,79013,44523,Cannabis Premises Check,SEATTLE,KING
+385,79013,44635,Cannabis Premises Check,SEATTLE,KING
+386,79013,44713,Cannabis Compliance Check-no Sale,SEATTLE,KING
+387,79013,44713,Cannabis Premises Check,SEATTLE,KING
+388,79013,44901,Cannabis Compliance Check-no Sale,SEATTLE,KING
+389,79013,44901,Cannabis Premises Check,SEATTLE,KING
+390,79013,45084,Cannabis Compliance Check-no Sale,SEATTLE,KING
+391,79013,45231,Cannabis Premises Check,SEATTLE,KING
+392,79013,45355,Cannabis Premises Check,SEATTLE,KING
+393,79013,45385,Cannabis Premises Check,SEATTLE,KING
+394,79013,45404,Cannabis Premises Check,SEATTLE,KING
+395,79013,45428,Cannabis Compliance Check-no Sale,SEATTLE,KING
+396,79013,45428,Cannabis Premises Check,SEATTLE,KING
+397,79350,43741,Cannabis Premises Check,SEATTLE,KING
+398,79350,43788,Cannabis Premises Check,SEATTLE,KING
+399,79350,43844,Cannabis Compliance Check-no Sale,SEATTLE,KING
+400,79350,43844,Cannabis Premises Check,SEATTLE,KING
+401,79350,43847,Cannabis Premises Check,SEATTLE,KING
+402,79429,44785,Cannabis Applicant Site Verification,WENATCHEE,CHELAN
+403,79563,43195,Cannabis Premises Check,UNINCORPORATED AREAS,KING
+404,79604,45209,Cannabis Premises Check,VANCOUVER,CLARK
+405,79720,42865,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+406,79720,42895,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+407,79720,42928,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+408,79720,43005,Cannabis Compliance Check-Sale,UNINCORP. AREAS,KITSAP
+409,79720,43006,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+410,79720,43011,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+411,79720,43067,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+412,79720,43081,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+413,79720,43089,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+414,79720,43105,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+415,79720,43119,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+416,79720,43153,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+417,79720,43155,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+418,79720,43182,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+419,79720,43194,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+420,79720,43201,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+421,79720,43210,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+422,79720,43221,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+423,79720,43320,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+424,79720,43320,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+425,79720,43398,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+426,79720,43413,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+427,79720,43413,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+428,79720,43467,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+429,79720,43517,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+430,79720,43561,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+431,79720,43586,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+432,79720,43636,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+433,79720,43691,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+434,79720,43691,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+435,79720,43712,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+436,79720,43783,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+437,79720,44000,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+438,79720,44046,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+439,79720,44356,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+440,79720,44474,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+441,79720,44540,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+442,79720,44680,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+443,79720,44756,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+444,79720,44908,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+445,79720,44908,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+446,79720,44938,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+447,79720,45080,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+448,79720,45167,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+449,79720,45262,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+450,79720,45262,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+451,79720,45313,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+452,79720,45393,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+453,79720,45581,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+454,79720,45685,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+455,79912,43384,Cannabis Premises Check,UNINCORP. AREAS,CLALLAM
+456,79912,43399,Cannabis Premises Check,UNINCORP. AREAS,CLALLAM
+457,79912,44516,Cannabis Premises Check,UNINCORP. AREAS,CLALLAM
+458,79912,45264,Cannabis Premises Check,UNINCORP. AREAS,CLALLAM
+459,79912,45460,Cannabis Premises Check,UNINCORP. AREAS,CLALLAM
+460,80180,44273,Cannabis Premises Check,PORT ANGELES,CLALLAM
+461,80184,43025,Cannabis Compliance Check-no Sale,,
+462,80306,42996,Cannabis Compliance Check-no Sale,SEATTLE,KING
+463,80743,43465,Cannabis Premises Check,,
+464,81400,42973,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+465,81400,42976,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+466,81400,42985,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+467,81400,42996,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+468,81400,42997,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+469,81400,43081,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+470,81400,43123,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+471,81400,43159,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+472,81400,43187,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+473,81400,43194,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+474,81400,43238,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+475,81400,43264,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+476,81400,43312,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+477,81400,43320,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+478,81400,43320,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+479,81400,43339,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+480,81400,43386,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+481,81400,43433,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+482,81400,43473,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+483,81400,43513,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+484,81400,43536,Cannabis Compliance Check-Sale,UNINCORP. AREAS,KITSAP
+485,81400,43536,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+486,81400,43598,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+487,81400,43630,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+488,81400,43654,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+489,81400,43689,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+490,81400,43790,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+491,81400,43804,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+492,81400,43808,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+493,81400,43819,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+494,81400,43839,Cannabis Compliance Check-no Sale,UNINCORP. AREAS,KITSAP
+495,81400,43900,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+496,81400,43971,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+497,81400,44159,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+498,81400,44307,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+499,81400,44330,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
+500,81400,44357,Cannabis Premises Check,UNINCORP. AREAS,KITSAP
