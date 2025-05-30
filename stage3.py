@@ -8,6 +8,8 @@ import seaborn as sns
 import plotly.graph_objects as go
 import numpy as np
 import geopandas as geopandas
+from matplotlib import patheffects
+from matplotlib.offsetbox import AnnotationBbox, OffsetImage
 
 #ignore warnings
 import warnings
@@ -232,7 +234,7 @@ def vis_Four():
 def vis_Five():
     enforcementVisits = pd.read_csv('data/Cannabis_Enforcement_Visits_04152025.csv')  # Loading the dataset from csv.
     washingtonCounties = geopandas.read_file('zip://data/WA_COUNTY_Boundaries.zip')  # Downloaded this from the https://geo.wa.gov/datasets website for Washington County boundary data.
-    washingtonCounties = washingtonCounties.to_crs("EPSG:3395")
+    washingtonCounties['County'] = washingtonCounties['JURISDIC_2'].str.upper()  # Added to match data in the mergedEnforcementCounties DataFrame so that the colors can map correctly.
     enforcementNumbers = enforcementVisits['C4'].value_counts().reset_index()  # Creating a new table using the data and counting up amount of enforcement visits per county using the C4 column in the enforcementVisits dataframe.
     enforcementNumbers.columns = ['County','totalCount']  # Naming the columns of the newly made dataframe so that I can make it union compatible for the merge.
     mergedEnforcementCounties = pd.merge(
@@ -243,20 +245,54 @@ def vis_Five():
     )
     # Making a new column called color in the merged tables to assign colors using np.where.
     # If the Social Equity Score is NaN or <= 100 the county is green, if the Social Equity Score is above 100 and below 200 then the county is orange, else the county is red.
-    mergedEnforcementCounties['color'] = (
+    mergedEnforcementCounties['color'] = np.where(
+        mergedEnforcementCounties['Lowest Score'].isna() | (mergedEnforcementCounties['Lowest Score'] <= 100),
+        'green',
         np.where(
-        mergedEnforcementCounties['Lowest Score'].isna() | (mergedEnforcementCounties['Lowest Score'] <= 100),'green',
-        np.where((mergedEnforcementCounties['Lowest Score'] <= 200) & (mergedEnforcementCounties['Lowest Score'] > 100),'orange',
+            (mergedEnforcementCounties['Lowest Score'] <= 200) & (mergedEnforcementCounties['Lowest Score'] > 100),
+            'orange',
             'red'
         )
-    ))
+    )
+    # Sorting for the colors to be correctly applied.
+    mergedEnforcementCounties.sort_values('County')
+    washingtonCounties = washingtonCounties.iloc[washingtonCounties['County'].argsort()]
+
+    mergedEnforcementData = pd.merge(
+        mergedEnforcementCounties,  # Table I'm merging into.
+        washingtonCounties,  # Table I'm merging
+        on='County',  # Merging using the County column
+        how='left'  # Left joining the tables.
+    )
+    mergedMapData = pd.merge(
+        washingtonCounties,  # Table I'm merging into.
+        enforcementNumbers,  # Table I'm merging
+        on='County',  # Merging using the County column
+        how='left'  # Left joining the tables.
+    )
+    mergedMapData = mergedMapData.to_crs("EPSG:4326")
 
     # Creating the figure and axis to put the geometry of my map on.
     fig, ax = plt.subplots(figsize=(12, 10))
-    # Plotting the states out now using the color column to choose colors and black lines with a pretty visible width to make strain on the eyes less.
-    washingtonCounties.plot(ax=ax, color=mergedEnforcementCounties['color'], edgecolor='black', linewidth=1)
+    # Plotting the counties out with the colormap from the mergedEnforcementCounties DataFrame.
+    mergedMapData.plot(ax=ax, color=mergedEnforcementData['color'].values, linewidth=1, edgecolor='black')
+    badgePNG = plt.imread('data/policeBadge.png')  # Reading the badge PNG image from my directory.
 
-    plt.title("Washington Counties: Police Activity and Social Equity")  # The title of the Geodata.
+    # This lambda function creates AnnotationBbox objects with and OffsetImage object inside of them that will hold the actual image, the Annotation box is used for automatic alignment using the geometry table that is in my washingtonCounties data. Same logic as the last lambda except instead of text, an image. If there is no police activity in the area for cannabis related reasons then the geometry will be left empty instead. I don't include a frame to keep the PNG aspect on the image with a transparent background. Moving it down using centroid.y - 0.1. Had to change to Lon/Lat ESPG:4326 for conversion. Adding artists to the mapData using the add_artist function.
+    mergedMapData.apply(lambda x: ax.add_artist(
+        AnnotationBbox(OffsetImage(badgePNG, zoom=0.0009 * x.totalCount if pd.notna(x.totalCount) else 0.02),
+                       xy=(x.geometry.centroid.x, (x.geometry.centroid.y - 0.1)),
+                       frameon=False)) if not x.geometry.is_empty else None, axis=1)
+
+    # Lambda function to iterate through the centroids of each counties geometry and add the 'County' as text
+    mergedMapData.apply(
+        lambda x: ax.annotate(x.County, xy=x.geometry.centroid.coords[0], ha='center', fontsize=16, color='white',
+                              family="Times New Roman",
+                              path_effects=[
+                                  patheffects.withSimplePatchShadow(offset=(1, -2), shadow_rgbFace='gray', alpha=0.3),
+                                  patheffects.withStroke(linewidth=0.35, foreground='black')]), axis=1)
+
+    plt.title("Washington Counties: Police Activity and Social Equity")  # The title of the Geodata visual
     plt.tight_layout()
     plt.show()
 
