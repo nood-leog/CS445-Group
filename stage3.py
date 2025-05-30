@@ -42,17 +42,74 @@ def print_Head(df, name):
     #print column names
     print("Columns:", df.columns.tolist())
     print("\n")
-# Alex Boyce
+
+#Alex Boyce
+#vis_One
+#uses: TODO!
 def vis_One():
     print("Vis One")
-# Alex Boyce
+
+
+#Alex Boyce
+#vis_Two
+#uses: II
 def vis_Two():
-    print("Vis Two")
+    print("Vis Two: New Product THC & CBD Potency Over Time")
 
+    #select Recorded Date, Tetrahydrocannabinol (THC), and Cannabidiols (CBD) columns
+    ii_clean = II[['Recorded Date', 'Tetrahydrocannabinol (THC)', 'Cannabidiols (CBD)']].copy()
 
-#vis_three uses: AA. Alex Boyce
+    #drop rows with missing date or both THC and CBD
+    ii_clean.dropna(subset=['Recorded Date', 'Tetrahydrocannabinol (THC)', 'Cannabidiols (CBD)'], how='all', inplace=True)
+
+    #convert date column to datetime
+    ii_clean['Recorded Date'] = pd.to_datetime(ii_clean['Recorded Date'], errors='coerce')
+
+    #clean THC and CBD columns
+    for col in ['Tetrahydrocannabinol (THC)', 'Cannabidiols (CBD)']:
+        ii_clean[col] = (
+            ii_clean[col] #select the column
+            .astype(str) #convert to string
+            .str.replace('%', '', regex=False) #remove percentage sign
+            .str.extract(r'(\d+\.?\d*)')  #extract the number
+            .astype(float) #convert to a float
+        )
+
+    #drop rows with an invalid date
+    ii_clean.dropna(subset=['Recorded Date'], inplace=True)
+
+    #filter out massive values outside 0-100 range
+    ii_clean = ii_clean[
+        ((ii_clean['Tetrahydrocannabinol (THC)'].isna()) | ((ii_clean['Tetrahydrocannabinol (THC)'] >= 0) & (ii_clean['Tetrahydrocannabinol (THC)'] <= 100))) &
+        ((ii_clean['Cannabidiols (CBD)'].isna()) | ((ii_clean['Cannabidiols (CBD)'] >= 0) & (ii_clean['Cannabidiols (CBD)'] <= 100)))
+    ]
+
+    #group by month
+    ii_clean['Month'] = ii_clean['Recorded Date'].dt.to_period('M') #convert to month period
+    monthly_avg = ii_clean.groupby('Month')[['Tetrahydrocannabinol (THC)', 'Cannabidiols (CBD)']].mean().reset_index() #group by month and calculate mean
+    monthly_avg['Month'] = monthly_avg['Month'].dt.to_timestamp() #convert month period back to timestamp
+
+    #plot
+    plt.figure(figsize=(12, 6))
+    sns.lineplot(data=monthly_avg, x='Month', y='Tetrahydrocannabinol (THC)', label='THC (%)', marker='o', color='green')
+    sns.lineplot(data=monthly_avg, x='Month', y='Cannabidiols (CBD)', label='CBD (%)', marker='o', color='blue')
+
+    plt.title('New Product THC & CBD Potency Over Time', fontsize=14)
+    plt.xlabel('Time', fontsize=14)
+    plt.ylabel('Potency (%)', fontsize=14)
+    plt.xticks(rotation=45)
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    #save the figure
+    plt.savefig("images/vis_two.png")
+    plt.show()
+
+#Alex Boyce
+#vis_three
+#uses: AA
 def vis_Three():
-    print("Vis Three")
+    print("Vis Three: Monthly Cannabis Sales Volume by Product Category")
 
     #set datetime
     AA["Month Ending"] = pd.to_datetime(AA["Month Ending"])
@@ -90,9 +147,9 @@ def vis_Three():
     plt.ylabel("Total Retail Sales ($)", fontsize=14)
     plt.legend(title="Product Type", bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=14)
     plt.tight_layout()
-    plt.show()
     #save the figure
     plt.savefig("images/vis_three.png")
+    plt.show()
 
 # This is Medically Endorsed Cannabis Facilities and Social Equity Score by County 3D ScatterPlot. Kyle Dennewith.
 def vis_Four():
@@ -214,51 +271,6 @@ Expected Insights:
 This visualization would help us understand if sales are clustered in urban
 centers, near state borders, or if other geographic factors influence sales
 volume.
-
-VIS TWO:
-#THC Potency vs. Avg Price Per Gram]
-
-Relevant Data: II, BB
-
-We will use a Scatter Plot of THC Potency vs. Avg Price Per Gram and
-include color coding to differentiate between Product Type.
-
-Rationale:
-This visualization would show the market valuation of potency and whether
-consumers are paying a consistent premium for higher THC levels.
-"Is there a strong correlation between THC potency and price in the
-Connecticut cannabis market, and does this relationship differ by product
-type?"
-Expected Insights:
-We could be able to show the relationship between potency and price. By
-including product type, this also could show some types with a stronger price-
-potency correlation than others.
-
-VIS THREE:
-Product Sales by Type in Connecticut (Quarterly)]
-
-Relevant Data: AA, FF, II
-
-We will use a stacked area chart where the x-axis represents time in quarters,
-and the y axis represents total sales volume. Each colored area represents a
-specific cannabis product category, and the height of each colored segment
-indicates the "popularity" of that product category at that point in time.
-
-Rationale:
-This visualization would be able to illustrate changes in the relative popularity
-and demand for different product categories. It clearly shows which categories
-are growing, shrinking, or maintaining a stable share of the market. It would
-also show both category growth and overall market growth.
-"How have consumer preferences for different types of cannabis products
-shifted in Connecticut over the past X years?"
-
-Expected Insights:
-With this visualization, we would be able to identify which product categories
-initially dominated the market and whether their dominance has persisted
-been overtaken by another market trend. This would also show shifting
-consumer consumption, whether that be due to seasonal usage year round, or
-regulatory changes affecting certain product types.
-
 
 '''
 
