@@ -294,6 +294,7 @@ def vis_Five():
 
     plt.title("Washington Counties: Police Activity and Social Equity")  # The title of the Geodata visual
     plt.tight_layout()
+    plt.savefig('images/WA_Counties_Police_Activity.png')
     plt.show()
 
 def main():
