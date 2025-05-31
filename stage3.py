@@ -48,10 +48,38 @@ def print_Head(df, name):
 
 #Alex Boyce
 #vis_One
-#uses: TODO!
+#uses: DD, geo
 def vis_One():
-    print("Vis One")
+    print("Vis One: Cannabis Retail Locations by ZIP Code")
 
+    #load ZIP code shapefile (nationwide)
+    zcta = geopandas.read_file("geo/ct_zipcodes_only.shp")
+    zcta = zcta.to_crs("EPSG:3395")
+
+    #filter to only Connecticut ZIPs starting with 06
+    zcta_ct = zcta[zcta["ZCTA5CE10"].str.startswith("06")].copy()
+
+    #clean Zipcode
+    DD["Zipcode"] = DD["Zipcode"].astype(str).str.zfill(5)
+
+    #group by ZIP and count stores
+    zip_counts = DD.groupby("Zipcode").size().reset_index(name="store_count")
+
+    #merge counts with CT ZIP shapes
+    merged = zcta_ct.merge(zip_counts, how="left", left_on="ZCTA5CE10", right_on="Zipcode")
+    merged["store_count"] = merged["store_count"].fillna(0)
+
+    #plot choropleth
+    fig, ax = plt.subplots(figsize=(10, 12))
+    merged.plot(column="store_count", ax=ax, cmap="Greens", edgecolor="black",
+                legend=True, legend_kwds={"label": "Number of Cannabis Retail Stores"})
+
+    ax.set_title("Cannabis Retail Store Count by ZIP Code (Connecticut)", fontsize=16)
+    ax.axis("off")
+    plt.tight_layout()
+    #save the figure
+    plt.savefig("images/vis_one.png")
+    plt.show()
 
 #Alex Boyce
 #vis_Two
@@ -317,33 +345,4 @@ def main():
     vis_Four()
     vis_Five()
 
-
 main()
-
-
-
-
-'''
-VIS ONE:
-#Average Cannabis Sales in Connecticut by City/Town (20XX)]
-
-Relevant Data: FF, DD, CC
-
-We will use a choropleth map of Connecticut where each city/town is
-associated with a colored square based on its average cannabis sales volume
-over the span of a year. Areas with higher sales will be shaded in darker
-green, while areas with lower sales will be shaded in darker blue, with a
-gradient of colors in between
-
-Rationale:
-This visualization would address the question: “Where are cannabis sales
-concentrated within the state, and are there significant regional sales
-disparities in the legal cannabis market?”
-
-Expected Insights:
-This visualization would help us understand if sales are clustered in urban
-centers, near state borders, or if other geographic factors influence sales
-volume.
-
-'''
-
