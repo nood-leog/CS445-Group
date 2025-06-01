@@ -4,12 +4,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import matplotlib.ticker as tick
+from matplotlib import patheffects
+from matplotlib.offsetbox import AnnotationBbox, OffsetImage
 import seaborn as sns
 import plotly.graph_objects as go
 import numpy as np
 import geopandas as geopandas
-from matplotlib import patheffects
-from matplotlib.offsetbox import AnnotationBbox, OffsetImage
 
 #ignore warnings
 import warnings
@@ -258,7 +259,7 @@ def vis_Four():
     fig.show()
 
 # Kyle Dennewith
-# Washington Counties: Police Activity and Social Equity Color/Icon Map. Icons WIP
+# Washington Counties: Police Activity and Social Equity Color/Icon Map.
 def vis_Five():
     enforcementVisits = pd.read_csv('data/Cannabis_Enforcement_Visits_04152025.csv')  # Loading the dataset from csv.
     washingtonCounties = geopandas.read_file('zip://data/WA_COUNTY_Boundaries.zip')  # Downloaded this from the https://geo.wa.gov/datasets website for Washington County boundary data.
@@ -322,8 +323,171 @@ def vis_Five():
 
     plt.title("Washington Counties: Police Activity and Social Equity")  # The title of the Geodata visual
     plt.tight_layout()
-    plt.savefig('images/WA_Counties_Police_Activity.png')
     plt.show()
+
+
+# Kyle Dennewith
+# Washington Counties: Cannabis Related Sales by County/Year.
+def vis_Six():
+    # Skipping the first row in each of the excel sheets so I can not use Unnamed: 3 as a header
+    retailWA1819 = pd.read_excel('data\RetailByCounty20182024.xlsx', sheet_name=['FY18', 'FY19'],skiprows=1)  # Data includes sales from 2018 and 2019 data to see how sales were doing before isolation.
+    retailWA2120 = pd.read_excel('data\RetailByCounty20182024.xlsx', sheet_name=['FY20', 'FY21'],skiprows=1)  # Data include 2020 and 2021 data, which was the COVID years to compare with 2 years before and afterward.
+    retailWA2223 = pd.read_excel('data\RetailByCounty20182024.xlsx', sheet_name=['FY22', 'FY23'],skiprows=1)  # Data includes sales from 2022 and 2023 this will show the advent effect of sales/revenue.
+
+    # Each dataset in a separate dataframe.
+    retail2018 = retailWA1819['FY18']
+    retail2019 = retailWA1819['FY19']
+    retail2020 = retailWA2120['FY20']
+    retail2021 = retailWA2120['FY21']
+    retail2022 = retailWA2223['FY22']
+    retail2023 = retailWA2223['FY23']
+
+    # Summing up each of the years total sales
+    total2018 = retail2018['Total Sales'].sum()
+    total2019 = retail2019['Total Sales'].sum()  # Dec 2019 COVID first appears
+    total2020 = retail2020['Total Sales'].sum()  # COVID Lockdowns started in March 2020 in the USA
+    total2021 = retail2021['Total Sales'].sum()  # Still Lockdowns and COVID happenings
+    total2022 = retail2022['Total Sales'].sum()  # Lockdowns have ended
+    total2023 = retail2023['Total Sales'].sum()
+    # A dataframe to hold all of my sums with the header as the year.
+    totalDF = pd.DataFrame({
+        'Year': ['2018', '2019', '2020', '2021', '2022', '2023'],
+        'totalSales': [total2018, total2019, total2020, total2021, total2022, total2023],
+    })
+
+    # Wanted to make more datasets after realizing there was no month column.
+    # Getting the top 5 counties of each year to see extra variation throughout the years for pinpointing top county fluctuations over the years, if any.
+    # 2018 top 5 DF Setup
+    topCounties2018 = retail2018.nlargest(5, 'Total Sales')
+    topCounties2018 = topCounties2018.drop(index=38)  # Unneeded data
+    topCounties2018['County'] = topCounties2018['County'].str[:4]
+    # 2019 top 5 DF Setup
+    topCounties2019 = retail2019.nlargest(5, 'Total Sales')
+    topCounties2019 = topCounties2019.drop(index=38)
+    topCounties2019['County'] = topCounties2019['County'].str[:4]
+    # 2020 top 5 DF setup
+    topCounties2020 = retail2020.nlargest(5, 'Total Sales')
+    topCounties2020 = topCounties2020.drop(index=38)
+    topCounties2020['County'] = topCounties2020['County'].str[:4]
+    # 2021 top 5 DF setup
+    topCounties2021 = retail2021.nlargest(5, 'Total Sales')
+    topCounties2021 = topCounties2021.drop(index=38)
+    topCounties2021['County'] = topCounties2021['County'].str[:4]
+    # 2022 top 5 DF setup
+    topCounties2022 = retail2021.nlargest(5, 'Total Sales')
+    topCounties2022 = topCounties2022.drop(index=38)
+    topCounties2022['County'] = topCounties2022['County'].str[:4]
+    # 2023 top 5 DF setup
+    topCounties2023 = retail2023.nlargest(5, 'Total Sales')
+    topCounties2023 = topCounties2023.drop(index=38)
+    topCounties2023['County'] = topCounties2023['County'].str[:4]
+
+    # Getting both the year 2018 and 2019 top 5 Counties by the amount of tax collected from the sales income. pre
+    topTaxCounties2018 = retail2018.nlargest(5, 'Excise Tax')
+    topTaxCounties2019 = retail2019.nlargest(5, 'Excise Tax')
+    # using concat to merge the tables, should be safe since they are identical format.
+    topTaxCounties1819 = pd.concat([topTaxCounties2018, topTaxCounties2019])
+    # Dropping a Null row with the index label 38
+    topTaxCounties1819 = topTaxCounties1819.drop(index=38)
+    topTaxCounties1819['County'] = topTaxCounties1819['County'].str[:4]
+
+    # Getting both the year 2022 and 2023 top 5 Counties by the amount of tax collected from the sales income. post
+    topTaxCounties2022 = retail2021.nlargest(5, 'Excise Tax')
+    topTaxCounties2023 = retail2023.nlargest(5, 'Excise Tax')
+    topTaxCounties2223 = pd.concat([topTaxCounties2022, topTaxCounties2023])
+    # Dropping a Null row with the index label 38
+    topTaxCounties2223 = topTaxCounties2023.drop(index=38)
+    topTaxCounties2223['County'] = topTaxCounties2223['County'].str[:4]
+
+    fig, ax = plt.subplots(3, 3, figsize=(9,
+                                          9))  # Making a plot with a 3 x 3 subplot formation with the first input 3 nrows, and 3 ncolumns, along with the figure size.
+    plt.subplots_adjust(wspace=0.30,
+                        hspace=0.30)  # Adjusting the width space and height space a bit for padding around each other the graphs.
+
+    # First Graph: Top Sales Counties 2018
+    ax[0, 0].bar(topCounties2018['County'], topCounties2018['Total Sales'], data=topCounties2018)
+    ax[0, 0].set_title('Top 4 County Sales (2018)', fontsize=9, fontfamily='monospace', color='blue')
+    ax[0, 0].set_ylabel('Total Sales', fontsize=8, fontfamily='serif', fontweight='bold', color='green', labelpad=-1)
+    ax[0, 0].set_xlabel('County', fontsize=8, labelpad=2, fontfamily='serif', fontweight='bold', color='purple')
+    ax[0, 0].tick_params(axis='y', pad=-3)
+    ax[0, 0].set_ylim(0, 400000000)
+    # Just need the x value (input) so used an underscore to not include the usage of the second variable since this lambda function just needs to use x and FuncFormatter takes a tick value and position value for parameters. Lambda is used because FuncFormatter as it name gives away, takes in a function.
+    # Using 1e6 and M for millions formatting using matplotlibs FuncFormatter.
+    ax[0, 0].yaxis.set_major_formatter(tick.FuncFormatter(lambda x, _: f"${x / 1e6:,.0f}M"))
+    # Second Graph: Top Sales Counties 2019
+    ax[0, 1].bar(topCounties2019['County'], topCounties2019['Total Sales'], data=topCounties2019)
+    ax[0, 1].set_title('Top 4 County Sales (2019)', fontsize=9, fontfamily='monospace', color='blue')
+    ax[0, 1].set_ylabel('Total Sales', fontsize=8, fontfamily='serif', fontweight='bold', color='green', labelpad=-1)
+    ax[0, 1].set_xlabel('County', fontsize=8, labelpad=2, fontfamily='serif', fontweight='bold', color='purple')
+    ax[0, 1].yaxis.set_major_formatter(tick.FuncFormatter(lambda x, _: f"${x / 1e6:,.0f}M"))
+    ax[0, 1].set_ylim(0, 400000000)
+    ax[0, 1].tick_params(axis='y', pad=-3)
+    # Third Graph: Top Sales Counties 2020
+    ax[0, 2].bar(topCounties2020['County'], topCounties2020['Total Sales'], data=topCounties2020)
+    ax[0, 2].set_title('Top 4 County Sales (2020)', fontsize=9, fontfamily='monospace', color='blue')
+    ax[0, 2].set_ylabel('Total Sales', fontsize=8, fontfamily='serif', fontweight='bold', color='green', labelpad=-1)
+    ax[0, 2].set_xlabel('County', fontsize=8, labelpad=2, fontfamily='serif', fontweight='bold', color='purple')
+    ax[0, 2].yaxis.set_major_formatter(tick.FuncFormatter(lambda x, _: f"${x / 1e6:,.0f}M"))
+    ax[0, 2].set_ylim(0, 400000000)
+    ax[0, 2].tick_params(axis='y', pad=-3)
+    # Fourth Graph: Top Sales Counties 2021
+    ax[1, 0].bar(topCounties2021['County'], topCounties2021['Total Sales'], data=topCounties2021)
+    ax[1, 0].set_title('Top 4 County Sales (2021)', fontsize=9, fontfamily='monospace', color='blue')
+    ax[1, 0].set_ylabel('Total Sales', fontsize=8, fontfamily='serif', fontweight='bold', color='green', labelpad=-1)
+    ax[1, 0].set_xlabel('County', fontsize=8, labelpad=2, fontfamily='serif', fontweight='bold', color='purple')
+    ax[1, 0].yaxis.set_major_formatter(tick.FuncFormatter(lambda x, _: f"${x / 1e6:,.0f}M"))
+    ax[1, 0].set_ylim(0, 400000000)
+    ax[1, 0].tick_params(axis='y', pad=-3)
+    # Fifth Graph: Top Sales Counties 2022
+    ax[1, 1].bar(topCounties2022['County'], topCounties2022['Total Sales'], data=topCounties2022)
+    ax[1, 1].set_title('Top 4 County Sales (2022)', fontsize=9, fontfamily='monospace', color='blue')
+    ax[1, 1].set_ylabel('Total Sales', fontsize=8, fontfamily='serif', fontweight='bold', color='green', labelpad=-1)
+    ax[1, 1].set_xlabel('County', fontsize=8, labelpad=2, fontfamily='serif', fontweight='bold', color='purple')
+    ax[1, 1].yaxis.set_major_formatter(tick.FuncFormatter(lambda x, _: f"${x / 1e6:,.0f}M"))
+    ax[1, 1].set_ylim(0, 400000000)
+    ax[1, 1].tick_params(axis='y', pad=-3)
+    # Sixth Graph: Top Sales Counties 2023
+    ax[1, 2].bar(topCounties2023['County'], topCounties2023['Total Sales'], data=topCounties2023)
+    ax[1, 2].set_title('Top 4 County Sales (2023)', fontsize=9, fontfamily='monospace', color='blue')
+    ax[1, 2].set_ylabel('Total Sales', fontsize=8, fontfamily='serif', fontweight='bold', color='green', labelpad=-1)
+    ax[1, 2].set_xlabel('County', fontsize=8, labelpad=2, fontfamily='serif', fontweight='bold', color='purple')
+    ax[1, 2].yaxis.set_major_formatter(tick.FuncFormatter(lambda x, _: f"${x / 1e6:,.0f}M"))
+    ax[1, 2].set_ylim(0, 400000000)
+    ax[1, 2].tick_params(axis='y', pad=-3)
+    # Seventh Graph: Top Sales per Year (2018-2023)
+    ax[2, 0].bar(totalDF['Year'], totalDF['totalSales'], data=totalDF)
+    ax[2, 0].set_title('Total Sales by Year', fontsize=9, fontfamily='monospace', color='blue')
+    ax[2, 0].set_ylabel('Total Sales', fontsize=8, fontfamily='serif', fontweight='bold', color='green', labelpad=-1)
+    ax[2, 0].set_xlabel('Year', fontsize=8, labelpad=2, fontfamily='serif', fontweight='bold', color='red')
+    # Using B for Billions and 1e9
+    ax[2, 0].yaxis.set_major_formatter(tick.FuncFormatter(lambda x, _: f"${x / 1e9:,.1f}B"))
+    ax[2, 0].set_ylim(0, 3000000000)
+    ax[2, 0].tick_params(axis='y', pad=-3)
+    ax[2, 0].tick_params(axis='x', labelsize=8)
+
+    # Eighth Graph: Top County Cannabis Tax Incomes (2018/2019)
+    ax[2, 1].bar(topTaxCounties1819['County'], topTaxCounties1819['Total Sales'], data=topTaxCounties1819)
+    ax[2, 1].set_title('Top 4 Cannabis Tax Incomes (PreC)', fontsize=7, fontfamily='monospace', color='blue')
+    ax[2, 1].set_ylabel('Total Taxes', fontsize=8, fontfamily='serif', fontweight='bold', color='green', labelpad=-1)
+    ax[2, 1].set_xlabel('County', fontsize=8, labelpad=2, fontfamily='serif', fontweight='bold', color='purple')
+    # Using B for Billions and 1e9
+    ax[2, 1].yaxis.set_major_formatter(tick.FuncFormatter(lambda x, _: f"${x / 1e6:,.0f}M"))
+    ax[2, 1].set_ylim(0, 400000000)
+    ax[2, 1].tick_params(axis='y', pad=-3)
+
+    # Ninth Graph: Top County Cannabis Tax Incomes (2022/2023)
+    ax[2, 2].bar(topTaxCounties2223['County'], topTaxCounties2223['Total Sales'], data=topTaxCounties2223)
+    ax[2, 2].set_title('Top 4 Cannibas Tax Incomes (PostC)', fontsize=7, fontfamily='monospace', color='blue')
+    ax[2, 2].set_ylabel('Total Taxes', fontsize=8, fontfamily='serif', fontweight='bold', color='green', labelpad=-1)
+    ax[2, 2].set_xlabel('County', fontsize=8, labelpad=2, fontfamily='serif', fontweight='bold', color='purple')
+    # Using B for Billions and 1e9
+    ax[2, 2].yaxis.set_major_formatter(tick.FuncFormatter(lambda x, _: f"${x / 1e6:,.0f}M"))
+    ax[2, 2].set_ylim(0, 400000000)
+    ax[2, 2].tick_params(axis='y', pad=-3)
+
+    plt.show()
+
+
 
 def main():
 
@@ -344,5 +508,6 @@ def main():
     vis_Three()
     vis_Four()
     vis_Five()
+    vis_Six()
 
 main()
