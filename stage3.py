@@ -10,7 +10,8 @@ from matplotlib.offsetbox import AnnotationBbox, OffsetImage
 import seaborn as sns
 import plotly.graph_objects as go
 import numpy as np
-import geopandas as geopandas
+import geopandas as gpd
+from matplotlib.patches import Patch
 
 #ignore warnings
 import warnings
@@ -20,14 +21,14 @@ warnings.filterwarnings('ignore', category=UserWarning)
 
 #load the data
 AA = pd.read_csv("data/AA_Cannabis_Retail_Products_Sold_by_Product_Type.csv") #Used by vis_Three()
-BB = pd.read_csv("data/BB_Average_Price_Per_Gram_of_Usable_Cannabis.csv")
-CC = pd.read_csv("data/CC_Cannabis_Retailers1.csv")
-DD = pd.read_csv("data/DD_Licensed_Cannabis_and_Medical_Marijuana_Retail_Locations.csv")
-EE = pd.read_csv("data/EE_Cannabis_Brand_Registrations_By_Type.csv")
-FF = pd.read_csv("data/FF_Cannabis_Retail_Sales_by_Week_Ending.csv")
-GG = pd.read_csv("data/GG_Number_of_Medical_Marijuana_Registrants_by_Month.csv")
-HH = pd.read_csv("data/HH_Medical_Marijuana_Dispensary_License1.csv")
-II = pd.read_csv("data/II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1.csv")
+BB = pd.read_csv("data/BB_Average_Price_Per_Gram_of_Usable_Cannabis.csv") #unused
+CC = pd.read_csv("data/CC_Cannabis_Retailers1.csv")#unused
+DD = pd.read_csv("data/DD_Licensed_Cannabis_and_Medical_Marijuana_Retail_Locations.csv") #Used by vis_One()
+EE = pd.read_csv("data/EE_Cannabis_Brand_Registrations_By_Type.csv") #unused
+FF = pd.read_csv("data/FF_Cannabis_Retail_Sales_by_Week_Ending.csv") #unused
+GG = pd.read_csv("data/GG_Number_of_Medical_Marijuana_Registrants_by_Month.csv") #unused
+HH = pd.read_csv("data/HH_Medical_Marijuana_Dispensary_License1.csv") #unused
+II = pd.read_csv("data/II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1.csv") #Used by vis_Two()
 # Medically Endorsed Cannabis locations in Washington Counties.
 medicallyEndorsedRetailers = pd.read_excel("data/MedicallyEndorsedRetailers05062025.xls")
 # Social Equity Scores for Washington Counties.
@@ -51,31 +52,109 @@ def print_Head(df, name):
 #vis_One
 #uses: DD, geo
 def vis_One():
-    print("Vis One: Cannabis Retail Locations by ZIP Code")
+    print("Vis One: Cannabis Retail Locations by ZIP Code (Exact Counts with Legend and Major Cities)")
 
-    #load ZIP code shapefile (nationwide)
-    zcta = geopandas.read_file("geo/ct_zipcodes_only.shp")
-    zcta = zcta.to_crs("EPSG:3395")
-
-    #filter to only Connecticut ZIPs starting with 06
+    #load ZIP shapefile and convert CRS
+    zcta = gpd.read_file("geo/ct_zipcodes_only.shp").to_crs("EPSG:3395")
     zcta_ct = zcta[zcta["ZCTA5CE10"].str.startswith("06")].copy()
 
-    #clean Zipcode
+    #prepare DD data
     DD["Zipcode"] = DD["Zipcode"].astype(str).str.zfill(5)
-
-    #group by ZIP and count stores
     zip_counts = DD.groupby("Zipcode").size().reset_index(name="store_count")
 
-    #merge counts with CT ZIP shapes
+    #merge with ZIP geometry
     merged = zcta_ct.merge(zip_counts, how="left", left_on="ZCTA5CE10", right_on="Zipcode")
-    merged["store_count"] = merged["store_count"].fillna(0)
+    merged["store_count"] = merged["store_count"].fillna(0).astype(int)
 
-    #plot choropleth
-    fig, ax = plt.subplots(figsize=(10, 12))
-    merged.plot(column="store_count", ax=ax, cmap="Greens", edgecolor="black",
-                legend=True, legend_kwds={"label": "Number of Cannabis Retail Stores"})
+    #categorize counts
+    def classify_count(x):
+        if x == 0:
+            return '0'
+        elif x == 1:
+            return '1'
+        elif x == 2:
+            return '2'
+        else:
+            return '3+'
 
-    ax.set_title("Cannabis Retail Store Count by ZIP Code (Connecticut)", fontsize=16)
+    merged["count_cat"] = merged["store_count"].apply(classify_count)
+
+    #color map
+    color_map = {
+        '0': '#cccccc',     # Grey
+        '1': '#a6cee3',     # Light Blue
+        '2': '#1f78b4',     # Blue-Green
+        '3+': '#006d2c'     # Dark Green
+    }
+
+    merged["color"] = merged["count_cat"].map(color_map)
+
+    # --- Major and mid-size cities data (lat, lon) in WGS84 ---
+    cities = pd.DataFrame({
+        'City': [
+            'Bridgeport', 'New Haven', 'Stamford', 'Hartford', 'Waterbury',
+            'Norwalk', 'Danbury', 'New Britain', 'Meriden', 'Bristol',
+            'Milford', 'Shelton', 'Greenwich', 'Torrington',
+            'Manchester', 'Middletown', 'Farmington', 'West Haven'
+        ],
+        'Latitude': [
+            41.1865, 41.3083, 41.0534, 41.7637, 41.5582,
+            41.1177, 41.3947, 41.6612, 41.5383, 41.6718,
+            41.2306, 41.3162, 41.0229, 41.8006,
+            41.7830, 41.5622, 41.7200, 41.2692
+        ],
+        'Longitude': [
+            -73.1952, -72.9279, -73.5387, -72.6851, -73.0515,
+            -73.4080, -73.4540, -72.7795, -72.8079, -72.9496,
+            -73.0621, -73.1305, -73.6262, -73.1218,
+            -72.5396, -72.6527, -72.8643, -72.9586
+        ]
+    })
+    eastern_cities = pd.DataFrame({
+        'City': [
+            'Norwich', 'New London', 'Willimantic', 'Putnam',
+            'Danielson', 'Stonington', 'Killingly', 'Plainfield', 'Sprague'
+        ],
+        'Latitude': [
+            41.5243, 41.3557, 41.7198, 41.9424,
+            41.7979, 41.3707, 41.8234, 41.6967, 41.4570
+        ],
+        'Longitude': [
+            -72.0753, -72.0995, -72.2170, -71.8676,
+            -71.9115, -71.8424, -71.8757, -71.8259, -72.0423
+        ]
+    })
+
+
+
+    #combine top 20 cities with the additional eastern cities
+    cities_extended = pd.concat([cities, eastern_cities], ignore_index=True)
+
+    gdf_cities = gpd.GeoDataFrame(
+        cities_extended,
+        geometry=gpd.points_from_xy(cities_extended['Longitude'], cities_extended['Latitude']),
+        crs="EPSG:4326"
+    )
+    #convert cities to map CRS
+    gdf_cities = gdf_cities.to_crs("EPSG:3395")
+
+    #plot
+    fig, ax = plt.subplots(figsize=(8, 6))
+    merged.plot(color=merged["color"], edgecolor="black", ax=ax)
+
+    #plot cities as green dots
+    gdf_cities.plot(ax=ax, color='red', markersize=30, marker='o', label='Cities', edgecolor='black', linewidth=0.5)
+
+    #city labels with an offset
+    for x, y, label in zip(gdf_cities.geometry.x, gdf_cities.geometry.y, gdf_cities['City']):
+        ax.text(x + 1000, y + 1000, label, fontsize=8, fontweight='bold', color='DarkRed')
+
+    #create legend
+    legend_elements = [Patch(facecolor=color, edgecolor='black', label=label) for label, color in color_map.items()]
+    legend_elements.append(plt.Line2D([0], [0], marker='o', color='w', label='Cities', markerfacecolor='red', markersize=8, markeredgecolor='black'))
+    ax.legend(handles=legend_elements, title="Number of Retail Stores", loc='lower right')
+
+    ax.set_title("Cannabis Retail Store Count by ZIP Code", fontsize=15)
     ax.axis("off")
     plt.tight_layout()
     #save the figure
@@ -262,7 +341,7 @@ def vis_Four():
 # Washington Counties: Police Activity and Social Equity Color/Icon Map.
 def vis_Five():
     enforcementVisits = pd.read_csv('data/Cannabis_Enforcement_Visits_04152025.csv')  # Loading the dataset from csv.
-    washingtonCounties = geopandas.read_file('zip://data/WA_COUNTY_Boundaries.zip')  # Downloaded this from the https://geo.wa.gov/datasets website for Washington County boundary data.
+    washingtonCounties = gpd.read_file('zip://data/WA_COUNTY_Boundaries.zip')  # Downloaded this from the https://geo.wa.gov/datasets website for Washington County boundary data.
     washingtonCounties['County'] = washingtonCounties['JURISDIC_2'].str.upper()  # Added to match data in the mergedEnforcementCounties DataFrame so that the colors can map correctly.
     enforcementNumbers = enforcementVisits['C4'].value_counts().reset_index()  # Creating a new table using the data and counting up amount of enforcement visits per county using the C4 column in the enforcementVisits dataframe.
     enforcementNumbers.columns = ['County','totalCount']  # Naming the columns of the newly made dataframe so that I can make it union compatible for the merge.
