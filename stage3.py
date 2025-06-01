@@ -20,15 +20,7 @@ warnings.filterwarnings('ignore', category=UserWarning)
 
 
 #load the data
-AA = pd.read_csv("data/AA_Cannabis_Retail_Products_Sold_by_Product_Type.csv") #Used by vis_Three()
-BB = pd.read_csv("data/BB_Average_Price_Per_Gram_of_Usable_Cannabis.csv") #unused
-CC = pd.read_csv("data/CC_Cannabis_Retailers1.csv")#unused
-DD = pd.read_csv("data/DD_Licensed_Cannabis_and_Medical_Marijuana_Retail_Locations.csv") #Used by vis_One()
-EE = pd.read_csv("data/EE_Cannabis_Brand_Registrations_By_Type.csv") #unused
-FF = pd.read_csv("data/FF_Cannabis_Retail_Sales_by_Week_Ending.csv") #unused
-GG = pd.read_csv("data/GG_Number_of_Medical_Marijuana_Registrants_by_Month.csv") #unused
-HH = pd.read_csv("data/HH_Medical_Marijuana_Dispensary_License1.csv") #unused
-II = pd.read_csv("data/II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1.csv") #Used by vis_Two()
+
 # Medically Endorsed Cannabis locations in Washington Counties.
 medicallyEndorsedRetailers = pd.read_excel("data/MedicallyEndorsedRetailers05062025.xls")
 # Social Equity Scores for Washington Counties.
@@ -53,6 +45,9 @@ def print_Head(df, name):
 #uses: DD, geo
 def vis_One():
     print("Vis One: Cannabis Retail Locations by ZIP Code (Exact Counts with Legend and Major Cities)")
+
+    DD = pd.read_csv("data/DD_Licensed_Cannabis_and_Medical_Marijuana_Retail_Locations.csv")
+    print_Head(DD, "DD_Licensed_Cannabis_and_Medical_Marijuana_Retail_Locations")
 
     #load ZIP shapefile and convert CRS
     zcta = gpd.read_file("geo/ct_zipcodes_only.shp").to_crs("EPSG:3395")
@@ -168,6 +163,9 @@ def vis_One():
 def vis_Two():
     print("Vis Two: New Product THC & CBD Potency Over Time")
 
+    II = pd.read_csv("data/II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1.csv")
+    print_Head(II, "II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1")
+
     #select Recorded Date, Tetrahydrocannabinol (THC), and Cannabidiols (CBD) columns
     ii_clean = II[['Recorded Date', 'Tetrahydrocannabinol (THC)', 'Cannabidiols (CBD)']].copy()
 
@@ -225,6 +223,9 @@ def vis_Two():
 def vis_Three():
     print("Vis Three: Monthly Cannabis Sales Volume by Product Category")
 
+    AA = pd.read_csv("data/AA_Cannabis_Retail_Products_Sold_by_Product_Type.csv")
+    print_Head(AA, "AA_Cannabis_Retail_Products_Sold_by_Product_Type")
+
     #set datetime
     AA["Month Ending"] = pd.to_datetime(AA["Month Ending"])
 
@@ -263,6 +264,63 @@ def vis_Three():
     plt.tight_layout()
     #save the figure
     plt.savefig("images/vis_three.png")
+    plt.show()
+
+
+#Alex Boyce
+#vis_Seven
+#uses: FF
+def vis_Seven():
+    #load and sort data
+    df = pd.read_csv("data/FF_Cannabis_Retail_Sales_by_Week_Ending.csv")
+    df["Week Ending"] = pd.to_datetime(df["Week Ending"])
+    df = df.sort_values("Week Ending")
+
+    #prepare figure
+    fig, ax = plt.subplots(figsize=(24, 6))
+
+    #plot bars
+    bar_width = pd.Timedelta(days=5)
+    bars = ax.bar(df["Week Ending"], df["Adult-Use Retail Sales"], width=bar_width, color="seagreen", edgecolor="black", linewidth=0.5)
+
+    #add week ending labels at top of bars
+    for bar, date in zip(bars, df["Week Ending"]):
+        height = bar.get_height()
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            height + 10000,
+            date.strftime('%b %d'),
+            ha='center', va='bottom', fontsize=12, rotation=90
+        )
+
+    #red linear trend line
+    x = mdates.date2num(df["Week Ending"])  #Convert dates to numeric
+    y = df["Adult-Use Retail Sales"].values
+    coef = np.polyfit(x, y, 1)
+    trend = np.poly1d(coef)
+    ax.plot(df["Week Ending"], trend(x), color='red', linewidth=4,  label='Trend (Linear)')
+
+    #Orange moving average line over a 4 week window
+    df["MA_4"] = df["Adult-Use Retail Sales"].rolling(window=4, center=False).mean()
+    ax.plot(df["Week Ending"], df["MA_4"], color='orange', linewidth=4, label='4-Week Moving Avg')
+
+    #tight x-limits to prevent unnecessary padding
+    start_date = df["Week Ending"].min() - pd.Timedelta(days=3)
+    end_date = df["Week Ending"].max() + pd.Timedelta(days=3)
+    ax.set_xlim(start_date, end_date)
+
+    #set labels and formatting
+    ax.set_title("Adult-Use Cannabis Retail Sales by Week", fontsize=16)
+    ax.set_xlabel("Week Ending")
+    ax.set_ylabel("Sales ($)", fontsize=14)
+    ax.tick_params(axis='x', rotation=45)
+    ax.yaxis.set_major_formatter('${x:,.0f}')
+    ax.legend()
+
+    plt.tight_layout()
+
+    #save the figure
+    plt.savefig("images/vis_seven.png")
     plt.show()
 
 
@@ -572,15 +630,13 @@ def vis_Six():
 
 def main():
 
-    #print the head of everything - Intended for debugging
-    print_Head(AA, "AA_Cannabis_Retail_Products_Sold_by_Product_Type")
-    print_Head(DD, "DD_Licensed_Cannabis_and_Medical_Marijuana_Retail_Locations")
-    print_Head(II, "II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1")
-
     #Visualizations:
     vis_One()
     vis_Two()
     vis_Three()
+
+    vis_Seven()
+
     vis_Four()
     vis_Five()
     vis_Six()
