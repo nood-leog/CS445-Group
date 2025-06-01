@@ -310,7 +310,7 @@ def vis_Seven():
     ax.set_xlim(start_date, end_date)
 
     #set labels and formatting
-    ax.set_title("Adult-Use Cannabis Retail Sales by Week", fontsize=16)
+    ax.set_title("Cannabis Retail Sales by Week", fontsize=16)
     ax.set_xlabel("Week Ending")
     ax.set_ylabel("Sales ($)", fontsize=14)
     ax.tick_params(axis='x', rotation=45)
