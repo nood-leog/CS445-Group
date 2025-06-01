@@ -125,8 +125,6 @@ def vis_One():
         ]
     })
 
-
-
     #combine top 20 cities with the additional eastern cities
     cities_extended = pd.concat([cities, eastern_cities], ignore_index=True)
 
@@ -164,6 +162,9 @@ def vis_One():
 #Alex Boyce
 #vis_Two
 #uses: II
+#cleans the THC and CBD columns by extracting numeric data
+#filters out invalid values over 100%
+#aggregate by month
 def vis_Two():
     print("Vis Two: New Product THC & CBD Potency Over Time")
 
@@ -219,6 +220,8 @@ def vis_Two():
 #Alex Boyce
 #vis_three
 #uses: AA
+#aggregates retail sales by month and product type
+#pivots the data for a stacked area chart
 def vis_Three():
     print("Vis Three: Monthly Cannabis Sales Volume by Product Category")
 
@@ -567,18 +570,11 @@ def vis_Six():
     plt.show()
 
 
-
 def main():
 
     #print the head of everything - Intended for debugging
     print_Head(AA, "AA_Cannabis_Retail_Products_Sold_by_Product_Type")
-    print_Head(BB, "BB_Average_Price_Per_Gram_of_Usable_Cannabis")
-    print_Head(CC, "CC_Cannabis_Retailers1")
     print_Head(DD, "DD_Licensed_Cannabis_and_Medical_Marijuana_Retail_Locations")
-    print_Head(EE, "EE_Cannabis_Brand_Registrations_By_Type")
-    print_Head(FF, "FF_Cannabis_Retail_Sales_by_Week_Ending")
-    print_Head(GG, "GG_Number_of_Medical_Marijuana_Registrants_by_Month")
-    print_Head(HH, "HH_Medical_Marijuana_Dispensary_License1")
     print_Head(II, "II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1")
 
     #Visualizations:
