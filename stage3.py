@@ -462,15 +462,23 @@ def vis_Eight():
                     weight="bold")
 
     #city points
-    city_points.plot(ax=ax, color="black", markersize=20, zorder=3)
+    city_points.plot(ax=ax, color="red", markersize=20, zorder=3)
 
     #city labels
     for x, y, label in zip(city_points.geometry.x, city_points.geometry.y, city_points["City"]):
-        ax.text(x, y, label, fontsize=7.5, ha="left", va="bottom", color="black")
+        ax.text(x, y, label, fontsize=10, ha="left", va="bottom", color="black", weight="bold")
 
-    #legend
+    # legend
     legend_elements = [Patch(facecolor=color, edgecolor='black', label=label) for label, color in color_map.items()]
-    ax.legend(handles=legend_elements, title="Number of Licensees", loc='lower right')
+    ax.legend(
+        handles=legend_elements,
+        title="Number of Licensees",
+        loc='lower right',
+        fontsize=12,  # smaller label text
+        title_fontsize=9,  # slightly smaller title
+        ncol=2,  # two columns
+
+    )
 
     ax.set_title("Medical Marijuana Licensees by ZIP Code", fontsize=15)
     ax.axis("off")
