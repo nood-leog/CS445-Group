@@ -160,17 +160,6 @@ def vis_One():
 #cleans the THC and CBD columns by extracting numeric data
 #filters out invalid values over 100%
 #aggregate by month
-
-'''
-Explain what this data is, where it came from, and where it was sourced from:  
-
-What is the motivating question about this for our visual?
-
-What are some Expected Insights from visualizing this data?
-
-'''
-
-
 def vis_Two():
     print("Vis Two: New Product THC, CBD, THCA & CBDA Potency Over Time")
 
