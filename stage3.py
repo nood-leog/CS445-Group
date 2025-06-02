@@ -271,7 +271,6 @@ def vis_Three():
 #vis_Seven
 #uses: FF
 def vis_Seven():
-
     print("Cannabis Retail Sales by Week Ending with Trend and Moving Average")
 
     #load and sort data
@@ -281,55 +280,72 @@ def vis_Seven():
     FF["Week Ending"] = pd.to_datetime(FF["Week Ending"])
     FF = FF.sort_values("Week Ending")
 
+    #identify first and last week per month
+    FF["YearMonth"] = FF["Week Ending"].dt.to_period("M")
+    first_weeks = FF.groupby("YearMonth")["Week Ending"].min()
+    last_weeks = FF.groupby("YearMonth")["Week Ending"].max()
+
+    #create color list based on first/last weeks
+    bar_colors = []
+    for date in FF["Week Ending"]:
+        if date in first_weeks.values:
+            bar_colors.append("purple")
+        elif date in last_weeks.values:
+            bar_colors.append("blue")
+        else:
+            bar_colors.append("seagreen")
+
+    #equally space the bars
+    x_pos = np.arange(len(FF))
+
     #prepare figure
     fig, ax = plt.subplots(figsize=(24, 8))
 
     #plot bars
-    bar_width = pd.Timedelta(days=5)
-    bars = ax.bar(FF["Week Ending"], FF["Adult-Use Retail Sales"], width=bar_width, color="seagreen", edgecolor="black", linewidth=0.5)
+    bars = ax.bar(x_pos, FF["Adult-Use Retail Sales"], width=0.6,
+                  color=bar_colors, edgecolor="black", linewidth=0.5)
 
-    #add week ending labels at top of bars
-    for bar, date in zip(bars, FF["Week Ending"]):
+    #add date labels on top of bars
+    for xpos, bar, date in zip(x_pos, bars, FF["Week Ending"]):
         height = bar.get_height()
         ax.text(
-            bar.get_x() + bar.get_width() / 2,
+            xpos,
             height + 10000,
             date.strftime('%b %d'),
             ha='center', va='bottom', fontsize=12, rotation=90
         )
 
     #red linear trend line
-    x = mdates.date2num(FF["Week Ending"])  #Convert dates to numeric
     y = FF["Adult-Use Retail Sales"].values
-    coef = np.polyfit(x, y, 1)
+    coef = np.polyfit(x_pos, y, 1)
     trend = np.poly1d(coef)
-    ax.plot(FF["Week Ending"], trend(x), color='red', linewidth=4,  label='Trend (Linear)')
+    ax.plot(x_pos, trend(x_pos), color='red', linewidth=4, label='Trend (Linear)')
 
     #Orange moving average line over a 4 week window
-    FF["MA_4"] = FF["Adult-Use Retail Sales"].rolling(window=4, center=False).mean()
-    ax.plot(FF["Week Ending"], FF["MA_4"], color='orange', linewidth=4, label='4-Week Moving Avg')
+    FF["MA_4"] = FF["Adult-Use Retail Sales"].rolling(window=4).mean()
+    ax.plot(x_pos, FF["MA_4"], color='orange', linewidth=4, label='4-Week Moving Avg')
 
-    #tight x-limits to prevent unnecessary padding
-    start_date = FF["Week Ending"].min() - pd.Timedelta(days=3)
-    end_date = FF["Week Ending"].max() + pd.Timedelta(days=3)
-    ax.set_xlim(start_date, end_date)
+    #format x axis with date labels
+    ax.set_xticks(x_pos[::2])  # every other label
+    ax.set_xticklabels(FF["Week Ending"].dt.strftime('%b %d')[::2], rotation=45)
 
     #set labels and formatting
     ax.set_title("          Cannabis Retail Sales by Week", fontsize=16)
     ax.set_xlabel("Week Ending")
     ax.set_ylabel("Sales ($)", fontsize=14)
-    ax.tick_params(axis='x', rotation=45)
     ax.yaxis.set_major_formatter('${x:,.0f}')
     ax.legend()
 
+    #remove whitespace around the bars
     plt.tight_layout()
+    ax.set_xlim(-0.5, len(FF) - 0.5)
 
     #save the figure
     plt.savefig("images/vis_seven.png")
     plt.show()
 
 
-# Kyle Dennewith.
+# Kyle Dennewith
 # This is Medically Endorsed Cannabis Facilities and Social Equity Score by County 3D ScatterPlot.
 def vis_Four():
     # Taking the tuples from the medicallyEndorsedRetailers DataFrame with the string 'ACTIVE (ISSUED)'. "Unnamed: 4" is referencing the column.
