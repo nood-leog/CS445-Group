@@ -405,10 +405,8 @@ def vis_Eight():
             return '10–11'
         elif x <= 14:
             return '12–14'
-        elif x <= 19:
-            return '15–19'
         else:
-            return '20+'
+            return '15+'
 
     merged["count_cat"] = merged["license_count"].apply(classify_count)
 
@@ -423,8 +421,7 @@ def vis_Eight():
         '8–9': '#0868ac',
         '10–11': '#084081',
         '12–14': '#562b73',
-        '15–19': '#3f007d',
-        '20+': '#2c004d'
+        '15+': '#3f007d',
     }
 
     merged["color"] = merged["count_cat"].map(color_map)
@@ -466,6 +463,14 @@ def vis_Eight():
     #Plot
     fig, ax = plt.subplots(figsize=(10, 8))
     merged.plot(color=merged["color"], edgecolor="black", ax=ax)
+
+    #number of licensees in each ZIP code
+    merged["centroid"] = merged.geometry.centroid
+    for idx, row in merged.iterrows():
+        x, y = row["centroid"].x, row["centroid"].y
+        if row["license_count"] > 0:
+            ax.text(x, y, str(row["license_count"]), fontsize=6.5, ha="center", va="center", color="black",
+                    weight="bold")
 
     #city points
     city_points.plot(ax=ax, color="black", markersize=20, zorder=3)
