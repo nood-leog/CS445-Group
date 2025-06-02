@@ -160,60 +160,81 @@ def vis_One():
 #cleans the THC and CBD columns by extracting numeric data
 #filters out invalid values over 100%
 #aggregate by month
+
+'''
+Explain what this data is, where it came from, and where it was sourced from:  
+
+What is the motivating question about this for our visual?
+
+What are some Expected Insights from visualizing this data?
+
+'''
+
+
 def vis_Two():
-    print("Vis Two: New Product THC & CBD Potency Over Time")
+    print("Vis Two: New Product THC, CBD, THCA & CBDA Potency Over Time")
 
     II = pd.read_csv("data/II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1.csv")
     print_Head(II, "II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1")
 
-    #select Recorded Date, Tetrahydrocannabinol (THC), and Cannabidiols (CBD) columns
-    ii_clean = II[['Recorded Date', 'Tetrahydrocannabinol (THC)', 'Cannabidiols (CBD)']].copy()
+    #select relevant columns
+    cols = ['Recorded Date',
+            'Tetrahydrocannabinol (THC)',
+            'Cannabidiols (CBD)',
+            'Tetrahydrocannabinol acid (THCA)',
+            'Carboxylic acids (CBDA)']
 
-    #drop rows with missing date or both THC and CBD
-    ii_clean.dropna(subset=['Recorded Date', 'Tetrahydrocannabinol (THC)', 'Cannabidiols (CBD)'], how='all', inplace=True)
+    ii_clean = II[cols].copy()
+
+    #drop rows with missing date or all chemical values missing
+    ii_clean.dropna(subset=['Recorded Date'] + cols[1:], how='all', inplace=True)
 
     #convert date column to datetime
     ii_clean['Recorded Date'] = pd.to_datetime(ii_clean['Recorded Date'], errors='coerce')
 
-    #clean THC and CBD columns
-    for col in ['Tetrahydrocannabinol (THC)', 'Cannabidiols (CBD)']:
+    #clean chemical columns
+    for col in cols[1:]:
         ii_clean[col] = (
-            ii_clean[col] #select the column
-            .astype(str) #convert to string
-            .str.replace('%', '', regex=False) #remove percentage sign
-            .str.extract(r'(\d+\.?\d*)')  #extract the number
-            .astype(float) #convert to a float
+            ii_clean[col]
+            .astype(str)
+            .str.replace('%', '', regex=False)
+            .str.extract(r'(\d+\.?\d*)')
+            .astype(float)
         )
 
-    #drop rows with an invalid date
+    #drop rows with invalid dates
     ii_clean.dropna(subset=['Recorded Date'], inplace=True)
 
-    #filter out massive values outside 0-100 range
-    ii_clean = ii_clean[
-        ((ii_clean['Tetrahydrocannabinol (THC)'].isna()) | ((ii_clean['Tetrahydrocannabinol (THC)'] >= 0) & (ii_clean['Tetrahydrocannabinol (THC)'] <= 100))) &
-        ((ii_clean['Cannabidiols (CBD)'].isna()) | ((ii_clean['Cannabidiols (CBD)'] >= 0) & (ii_clean['Cannabidiols (CBD)'] <= 100)))
-    ]
+    #filter out anything not in the range 0-100 for chemical columns
+    for col in cols[1:]:
+        ii_clean = ii_clean[(ii_clean[col].isna()) | ((ii_clean[col] >= 0) & (ii_clean[col] <= 100))]
 
     #group by month
-    ii_clean['Month'] = ii_clean['Recorded Date'].dt.to_period('M') #convert to month period
-    monthly_avg = ii_clean.groupby('Month')[['Tetrahydrocannabinol (THC)', 'Cannabidiols (CBD)']].mean().reset_index() #group by month and calculate mean
-    monthly_avg['Month'] = monthly_avg['Month'].dt.to_timestamp() #convert month period back to timestamp
+    ii_clean['Month'] = ii_clean['Recorded Date'].dt.to_period('M')
+    monthly_avg = ii_clean.groupby('Month')[cols[1:]].mean().reset_index()
+    monthly_avg['Month'] = monthly_avg['Month'].dt.to_timestamp()
 
     #plot
     plt.figure(figsize=(12, 6))
-    sns.lineplot(data=monthly_avg, x='Month', y='Tetrahydrocannabinol (THC)', label='THC (%)', marker='o', color='green')
+    sns.lineplot(data=monthly_avg, x='Month', y='Tetrahydrocannabinol (THC)', label='THC (%)', marker='o',
+                 color='green')
     sns.lineplot(data=monthly_avg, x='Month', y='Cannabidiols (CBD)', label='CBD (%)', marker='o', color='blue')
+    sns.lineplot(data=monthly_avg, x='Month', y='Tetrahydrocannabinol acid (THCA)', label='THCA (%)', marker='o',
+                 color='orange')
+    sns.lineplot(data=monthly_avg, x='Month', y='Carboxylic acids (CBDA)', label='CBDA (%)', marker='o', color='purple')
 
-    plt.title('New Product THC & CBD Potency Over Time', fontsize=14)
+    plt.title('New Product THC, CBD, THCA & CBDA Potency Over Time', fontsize=14)
     plt.xlabel('Time', fontsize=14)
     plt.ylabel('Potency (%)', fontsize=14)
     plt.xticks(rotation=45)
     plt.grid(True)
     plt.legend()
     plt.tight_layout()
+
     #save the figure
     plt.savefig("images/vis_two.png")
     plt.show()
+
 
 #Alex Boyce
 #vis_three
@@ -342,6 +363,125 @@ def vis_Seven():
 
     #save the figure
     plt.savefig("images/vis_seven.png")
+    plt.show()
+
+
+#Alex Boyce
+#vis_Eight
+#uses: HH
+def vis_Eight():
+    print("Vis Eight: Medical Marijuana Licensees by ZIP Code")
+
+    HH = pd.read_csv("data/HH_Medical_Marijuana_Dispensary_License1.csv")
+    print_Head(HH, "HH_Medical_Marijuana_Dispensary_License1")
+
+    HH["Zipcode"] = HH["ZIP"].astype(str).str.extract(r"(\d{5})")
+    zip_counts = HH.groupby("Zipcode").size().reset_index(name="license_count")
+
+    zcta = gpd.read_file("geo/ct_zipcodes_only.shp").to_crs("EPSG:3395")
+    zcta_ct = zcta[zcta["ZCTA5CE10"].str.startswith("06")].copy()
+
+    merged = zcta_ct.merge(zip_counts, how="left", left_on="ZCTA5CE10", right_on="Zipcode")
+    merged["license_count"] = merged["license_count"].fillna(0).astype(int)
+
+    def classify_count(x):
+        if x == 0:
+            return '0'
+        elif x == 1:
+            return '1'
+        elif x == 2:
+            return '2'
+        elif x == 3:
+            return '3'
+        elif x == 4:
+            return '4'
+        elif x == 5:
+            return '5'
+        elif x <= 7:
+            return '6–7'
+        elif x <= 9:
+            return '8–9'
+        elif x <= 11:
+            return '10–11'
+        elif x <= 14:
+            return '12–14'
+        elif x <= 19:
+            return '15–19'
+        else:
+            return '20+'
+
+    merged["count_cat"] = merged["license_count"].apply(classify_count)
+
+    color_map = {
+        '0': '#f0f0f0',
+        '1': '#e0f3db',
+        '2': '#ccebc5',
+        '3': '#a8ddb5',
+        '4': '#7bccc4',
+        '5': '#4eb3d3',
+        '6–7': '#2b8cbe',
+        '8–9': '#0868ac',
+        '10–11': '#084081',
+        '12–14': '#562b73',
+        '15–19': '#3f007d',
+        '20+': '#2c004d'
+    }
+
+    merged["color"] = merged["count_cat"].map(color_map)
+
+    cities = pd.DataFrame({
+        'City': [
+            'Bridgeport', 'New Haven', 'Stamford', 'Hartford', 'Waterbury',
+            'Norwalk', 'Danbury', 'New Britain', 'Meriden', 'Bristol',
+            'Milford', 'Shelton', 'Greenwich', 'Torrington',
+            'Manchester', 'Middletown', 'Farmington', 'West Haven',
+            'Norwich', 'New London', 'Willimantic', 'Putnam',
+            'Danielson', 'Stonington', 'Killingly', 'Plainfield', 'Sprague'
+        ],
+        'Latitude': [
+            41.1865, 41.3083, 41.0534, 41.7637, 41.5582,
+            41.1177, 41.3947, 41.6612, 41.5383, 41.6718,
+            41.2306, 41.3162, 41.0229, 41.8006,
+            41.7830, 41.5622, 41.7200, 41.2692,
+            41.5243, 41.3557, 41.7198, 41.9424,
+            41.7979, 41.3707, 41.8234, 41.6967, 41.4570
+        ],
+        'Longitude': [
+            -73.1952, -72.9279, -73.5387, -72.6851, -73.0515,
+            -73.4080, -73.4540, -72.7795, -72.8079, -72.9496,
+            -73.0621, -73.1305, -73.6262, -73.1218,
+            -72.5396, -72.6527, -72.8643, -72.9586,
+            -72.0753, -72.0995, -72.2170, -71.8676,
+            -71.9115, -71.8424, -71.8757, -71.8259, -72.0423
+        ]
+    })
+
+    #Create GeoDataFrame for cities
+    city_points = gpd.GeoDataFrame(
+        cities,
+        geometry=gpd.points_from_xy(cities['Longitude'], cities['Latitude']),
+        crs="EPSG:4326"
+    ).to_crs("EPSG:3395")
+
+    #Plot
+    fig, ax = plt.subplots(figsize=(10, 8))
+    merged.plot(color=merged["color"], edgecolor="black", ax=ax)
+
+    #city points
+    city_points.plot(ax=ax, color="black", markersize=20, zorder=3)
+
+    #city labels
+    for x, y, label in zip(city_points.geometry.x, city_points.geometry.y, city_points["City"]):
+        ax.text(x, y, label, fontsize=7.5, ha="left", va="bottom", color="black")
+
+    #legend
+    legend_elements = [Patch(facecolor=color, edgecolor='black', label=label) for label, color in color_map.items()]
+    ax.legend(handles=legend_elements, title="Number of Licensees", loc='lower right')
+
+    ax.set_title("Medical Marijuana Licensees by ZIP Code", fontsize=15)
+    ax.axis("off")
+    plt.tight_layout()
+    plt.savefig("images/vis_eight.png", dpi=300)
     plt.show()
 
 
@@ -657,6 +797,8 @@ def main():
     vis_Three()
 
     vis_Seven()
+    vis_Eight()
+
 
     vis_Four()
     vis_Five()
