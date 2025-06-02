@@ -271,20 +271,25 @@ def vis_Three():
 #vis_Seven
 #uses: FF
 def vis_Seven():
+
+    print("Cannabis Retail Sales by Week Ending with Trend and Moving Average")
+
     #load and sort data
-    df = pd.read_csv("data/FF_Cannabis_Retail_Sales_by_Week_Ending.csv")
-    df["Week Ending"] = pd.to_datetime(df["Week Ending"])
-    df = df.sort_values("Week Ending")
+    FF = pd.read_csv("data/FF_Cannabis_Retail_Sales_by_Week_Ending.csv")
+    print_Head(FF, "FF_Cannabis_Retail_Sales_by_Week_Ending")
+
+    FF["Week Ending"] = pd.to_datetime(FF["Week Ending"])
+    FF = FF.sort_values("Week Ending")
 
     #prepare figure
-    fig, ax = plt.subplots(figsize=(24, 6))
+    fig, ax = plt.subplots(figsize=(24, 8))
 
     #plot bars
     bar_width = pd.Timedelta(days=5)
-    bars = ax.bar(df["Week Ending"], df["Adult-Use Retail Sales"], width=bar_width, color="seagreen", edgecolor="black", linewidth=0.5)
+    bars = ax.bar(FF["Week Ending"], FF["Adult-Use Retail Sales"], width=bar_width, color="seagreen", edgecolor="black", linewidth=0.5)
 
     #add week ending labels at top of bars
-    for bar, date in zip(bars, df["Week Ending"]):
+    for bar, date in zip(bars, FF["Week Ending"]):
         height = bar.get_height()
         ax.text(
             bar.get_x() + bar.get_width() / 2,
@@ -294,23 +299,23 @@ def vis_Seven():
         )
 
     #red linear trend line
-    x = mdates.date2num(df["Week Ending"])  #Convert dates to numeric
-    y = df["Adult-Use Retail Sales"].values
+    x = mdates.date2num(FF["Week Ending"])  #Convert dates to numeric
+    y = FF["Adult-Use Retail Sales"].values
     coef = np.polyfit(x, y, 1)
     trend = np.poly1d(coef)
-    ax.plot(df["Week Ending"], trend(x), color='red', linewidth=4,  label='Trend (Linear)')
+    ax.plot(FF["Week Ending"], trend(x), color='red', linewidth=4,  label='Trend (Linear)')
 
     #Orange moving average line over a 4 week window
-    df["MA_4"] = df["Adult-Use Retail Sales"].rolling(window=4, center=False).mean()
-    ax.plot(df["Week Ending"], df["MA_4"], color='orange', linewidth=4, label='4-Week Moving Avg')
+    FF["MA_4"] = FF["Adult-Use Retail Sales"].rolling(window=4, center=False).mean()
+    ax.plot(FF["Week Ending"], FF["MA_4"], color='orange', linewidth=4, label='4-Week Moving Avg')
 
     #tight x-limits to prevent unnecessary padding
-    start_date = df["Week Ending"].min() - pd.Timedelta(days=3)
-    end_date = df["Week Ending"].max() + pd.Timedelta(days=3)
+    start_date = FF["Week Ending"].min() - pd.Timedelta(days=3)
+    end_date = FF["Week Ending"].max() + pd.Timedelta(days=3)
     ax.set_xlim(start_date, end_date)
 
     #set labels and formatting
-    ax.set_title("Cannabis Retail Sales by Week", fontsize=16)
+    ax.set_title("          Cannabis Retail Sales by Week", fontsize=16)
     ax.set_xlabel("Week Ending")
     ax.set_ylabel("Sales ($)", fontsize=14)
     ax.tick_params(axis='x', rotation=45)
