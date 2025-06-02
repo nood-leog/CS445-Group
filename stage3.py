@@ -174,8 +174,8 @@ What are some Expected Insights from visualizing this data?
 def vis_Two():
     print("Vis Two: New Product THC, CBD, THCA & CBDA Potency Over Time")
 
-    II = pd.read_csv("data/II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1.csv")
-    print_Head(II, "II_Medical_MarijuanaCannabis_Brands_with_Chemical_Composition1")
+    II = pd.read_csv("data/II_Cannabis_Brands_with_Chemical_Composition.csv")
+    print_Head(II, "II_Cannabis_Brands_with_Chemical_Composition")
 
     #select relevant columns
     cols = ['Recorded Date',
