@@ -527,7 +527,8 @@ def vis_Four():
             ),  # mapping the school colors I mapped up above to respective schools GP and MS.
             opacity=0.8  # marker opacity
         ),
-        name='"Counties'
+        name='Social Equity Score',
+        showlegend=true
     ))
 
     fig.update_layout(
@@ -602,6 +603,12 @@ def vis_Five():
         on='County',  # Merging using the County column
         how='left'  # Left joining the tables.
     )
+    mapLabels = [
+    Patch(color='green', label='<100'),
+    Patch(color='orange', label='100-200'),
+    Patch(color='red', label='>200'),
+    Patch(color='white', label='Badge Size = Police Presence'),
+    ]
     mergedMapData = mergedMapData.to_crs("EPSG:4326")
 
     # Creating the figure and axis to put the geometry of my map on.
@@ -625,6 +632,7 @@ def vis_Five():
                                   patheffects.withStroke(linewidth=0.35, foreground='black')]), axis=1)
 
     plt.title("Washington Counties: Police Activity and Social Equity")  # The title of the Geodata visual
+    plt.legend(handles=mapLabels, title='Social Equity Score', loc='upper left')
     plt.tight_layout()
     plt.show()
 
